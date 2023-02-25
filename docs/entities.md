@@ -28,6 +28,13 @@
 - name: string
 - description: string
 
+## Wallet_Asset
+- wallet_asset_id: numer
+- wallet_id: number (foreign key)
+- asset_id: number (foreign key)
+- targe_type: number [1-percent, 2-value]
+- target: number
+
 ## Wallet_Month
 - wallet_month_id: number
 - wallet_id: number (foreign key)
@@ -38,13 +45,6 @@
 - unit_price: float
 - total: float
 - base_month: date
-
-## Wallet_Asset
-- wallet_asset_id: numer
-- wallet_id: number (foreign key)
-- asset_id: number (foreign key)
-- targe_type: number [1-percent, 2-value]
-- target: number
 
 ## Wallet_Transaction
 - transaction_id: number
