@@ -4,6 +4,7 @@
 - email: string
 - password: string
 - year_start: number
+- current_wallet_id: number (foreign key)
 
 ## Broker
 - broker_id: number
