@@ -1,5 +1,5 @@
 # Investment Wallet
-Investment Wallet Manager
+This is an web application called: Tá investido
 
 # How to set up
 
@@ -16,3 +16,6 @@ git cz
 
 ## Entities
 Take a look on the structure [Entities](/docs/entities.md).
+
+## Api
+To understand the backend structure, access the [documentation](/api/readme.md).
