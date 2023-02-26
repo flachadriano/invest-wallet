@@ -23,3 +23,17 @@ This command is used to initialize the typescript configurator
 ```bash
 yarn tsc --init
 ```
+
+## Work with the database
+
+When you want to add anything on database, just change the entity describe on entities folder.
+
+Then run the command:
+```bash
+yarn migrate:generate
+```
+
+It will generate a migration on `src/migrations`. Run the below command, as soon as possible, because if you generate two migrations before run it, it will broke the database:
+```bash
+yarn migrate:run
+```

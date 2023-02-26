@@ -1,9 +1,9 @@
 ## User
 - user_id: number
-- name: string
+- user_name: string
 - email: string
 - password: string
-- year_start: number
+- created_at: date
 - current_wallet_id: number (foreign key)
 
 ## Broker

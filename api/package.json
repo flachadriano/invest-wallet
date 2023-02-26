@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev server.ts"
+    "dev": "ts-node-dev server.ts",
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/DataSource.ts migration:generate ./src/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/DataSource.ts migration:run"
   },
   "devDependencies": {
     "@types/express": "^4.17.17",
