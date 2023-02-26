@@ -7,7 +7,9 @@ It was used this video https://youtu.be/RaweREhpBX8 as base to start this projec
 ### Application dependencies
 
 * express - the framework to create the server. https://expressjs.com/
-* 
+* typeorm - work with database, using ORM. https://typeorm.io/
+* reflect-metadata - dependency of typeorm
+* pg - postgres database
 
 ### Development dependencies
 
