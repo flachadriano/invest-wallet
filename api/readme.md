@@ -2,7 +2,10 @@
 
 ## Installed dependencies
 
-It was used this video https://youtu.be/RaweREhpBX8 as base to start this project.
+It was the lessons used to support this project development:
+- https://youtu.be/RaweREhpBX8
+- https://youtu.be/j8cm2C5-xn8
+- https://youtu.be/jBOLRzjEERk
 
 ### Application dependencies
 

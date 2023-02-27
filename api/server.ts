@@ -1,5 +1,6 @@
 import express from "express";
 import AppDataSource from "./src/DataSource";
+import routes from "./src/Routes";
 
 console.log('Connecting to the database...');
 AppDataSource.initialize().then(() => {
@@ -7,8 +8,7 @@ AppDataSource.initialize().then(() => {
 
   const app = express();
   app.use(express.json());
-
-  app.get('/', (req, res) => res.json('Hello World!'));
+  app.use(routes);
 
   app.listen(process.env.APP_PORT, () => console.log(`Server is running on port ${process.env.APP_PORT}`));
 
