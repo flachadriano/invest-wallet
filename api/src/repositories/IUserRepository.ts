@@ -1,6 +1,6 @@
 import { User } from "../entities/User";
 
-interface IUser {
+export interface IUserCreateData {
   name: string;
   email: string;
   login: string;
@@ -9,7 +9,7 @@ interface IUser {
 
 export interface IUserRepository {
 
-  create(user: IUser): User;
+  create(user: IUserCreateData): User;
 
   save(user: User): Promise<User>;
 
