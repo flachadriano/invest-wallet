@@ -27,6 +27,11 @@ export class CreateUserUseCase {
       throw new UnprocessableEntity('Senha');
     }
 
+    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+    if (!isValidEmail) {
+      throw new UnprocessableEntity('E-mail', 'é inválido');
+    }
+
     let foundUser = await this.repository.findByEmail(email);
     if (foundUser) {
       throw new Conflict('E-mail');

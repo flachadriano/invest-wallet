@@ -61,8 +61,14 @@ describe('WHEN create an user', () => {
     expect(duplicatedUserPromise).rejects.toBeInstanceOf(Conflict);
   });
 
-  it('WITH malformed email THEN raise an error', () => {
-    // TODO
+  it('WITH malformed email, without at THEN raise an error', () => {
+    const userCreatePromise = getUseCaseInstance().execute({ ...getNewUserData(), email: 'flachadrianogmail.com' });
+    expect(userCreatePromise).rejects.toBeInstanceOf(UnprocessableEntity);
+  });
+
+  it('WITH malformed email, without dot after the at THEN raise an error', () => {
+    const userCreatePromise = getUseCaseInstance().execute({ ...getNewUserData(), email: 'flachadriano@gmailcom' });
+    expect(userCreatePromise).rejects.toBeInstanceOf(UnprocessableEntity);
   });
 
 });
