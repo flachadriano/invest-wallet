@@ -26,8 +26,7 @@ export class CreateUserUseCase {
       throw new UnprocessableEntity('Senha');
     }
 
-    const user = this.repository.create(request);
-    await this.repository.save(user);
+    const user = await this.repository.create(request);
     return user;
   }
 }

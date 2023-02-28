@@ -9,8 +9,6 @@ export interface IUserCreateData {
 
 export interface IUserRepository {
 
-  create(user: IUserCreateData): User;
-
-  save(user: User): Promise<User>;
+  create(user: IUserCreateData): Promise<User>;
 
 }

@@ -3,7 +3,7 @@ import { IUserRepository, IUserCreateData } from "../IUserRepository";
 
 export class UserRepositoryInMemory implements IUserRepository {
 
-  create(user: IUserCreateData): User {
+  create(user: IUserCreateData): Promise<User> {
     const newUser = new User();
     newUser.id = 1;
     newUser.name = user.name;
@@ -11,11 +11,7 @@ export class UserRepositoryInMemory implements IUserRepository {
     newUser.login = user.login;
     newUser.password = user.password;
     newUser.createdAt = new Date();
-    return newUser;
-  }
-
-  save(user: User): Promise<User> {
-    return Promise.resolve(user);
+    return Promise.resolve(newUser);
   }
 
 }
