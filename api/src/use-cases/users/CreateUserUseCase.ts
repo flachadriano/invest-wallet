@@ -1,5 +1,6 @@
 import { User } from "../../entities/User";
 import { IUserRepository } from "../../repositories/IUserRepository";
+import { Conflict } from "../errors/Conflict";
 import { UnprocessableEntity } from "../errors/UnprocessableEntity";
 
 interface IRequest {
@@ -12,21 +13,30 @@ interface IRequest {
 export class CreateUserUseCase {
   constructor(private repository: IUserRepository) {}
 
-  async execute(request: IRequest): Promise<User> {
-    if (!request.name) {
+  async execute({ name, email, login, password }: IRequest): Promise<User> {
+    if (!name) {
       throw new UnprocessableEntity('Nome');
     }
-    if (!request.email) {
+    if (!email) {
       throw new UnprocessableEntity('E-mail');
     }
-    if (!request.login) {
+    if (!login) {
       throw new UnprocessableEntity('Login');
     }
-    if (!request.password) {
+    if (!password) {
       throw new UnprocessableEntity('Senha');
     }
 
-    const user = await this.repository.create(request);
+    let foundUser = await this.repository.findByEmail(email);
+    if (foundUser) {
+      throw new Conflict('E-mail');
+    }
+    foundUser = await this.repository.findByLogin(login);
+    if (foundUser) {
+      throw new Conflict('Login');
+    }
+
+    const user = await this.repository.create({ name, email, login, password });
     return user;
   }
 }
