@@ -13,12 +13,14 @@ It was the lessons used to support this project development:
 * typeorm - work with database, using ORM. https://typeorm.io/
 * reflect-metadata - dependency of typeorm
 * pg - postgres database
+* express-async-errors - intercept application errors
 
 ### Development dependencies
 
 * typescript - this is a typescript project
-* @types/express - load the typescript types to work with express
 * ts-node-dev - run our server on development mode
+* eslint - source code style
+* vitest - run tests
 
 ### Commands used to create the project
 
