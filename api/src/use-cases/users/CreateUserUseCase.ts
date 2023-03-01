@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { User } from "../../entities/User";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { Conflict } from "../errors/Conflict";
@@ -41,7 +42,8 @@ export class CreateUserUseCase {
       throw new Conflict('Login');
     }
 
-    const user = await this.repository.create({ name, email, login, password });
+    const passwordHash = crypto.pbkdf2Sync(password, process.env.PASSWORD_SALT, 1000, 64, 'sha512').toString('hex');
+    const user = await this.repository.create({ name, email, login, password: passwordHash });
     return user;
   }
 }

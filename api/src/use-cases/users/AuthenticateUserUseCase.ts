@@ -1,3 +1,4 @@
+import crypto from "crypto";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { Unauthorized } from "../errors/Unauthorized";
 
@@ -15,7 +16,12 @@ export class AuthenticateUserUseCase {
       user = await this.repository.findByEmail(loginOrEmail);
     }
 
-    if (!user || user.password != password) {
+    if (!user) {
+      throw new Unauthorized();
+    }
+
+    const passwordHash = crypto.pbkdf2Sync(password, process.env.PASSWORD_SALT, 1000, 64, 'sha512').toString('hex');
+    if (user.password != passwordHash) {
       throw new Unauthorized();
     }
 

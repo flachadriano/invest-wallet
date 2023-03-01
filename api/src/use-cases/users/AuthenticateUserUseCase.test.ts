@@ -24,6 +24,7 @@ describe('WHEN authenticate and user', () => {
   };
 
   beforeEach(() => {
+    process.env.PASSWORD_SALT='mocked-salt';
     repository = new UserRepositoryInMemory();
     createUser();
     useCase = new AuthenticateUserUseCase(repository);

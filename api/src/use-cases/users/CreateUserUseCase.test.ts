@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { User } from '../../entities/User';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
 import { Conflict } from '../errors/Conflict';
@@ -19,6 +19,10 @@ describe('WHEN create an user', () => {
       password: '123'
     };
   }
+
+  beforeEach(() => {
+    process.env.PASSWORD_SALT='mocked-salt';
+  })
 
   it('WITH valid data THEN create it', () => {
     const userCreatePromise = getUseCaseInstance().execute(getNewUserData());
