@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { User } from "../../entities/User";
 import { UserRepositoryInMemory } from "../../repositories/in-memory/UserRepositoryInMemory";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { Unauthorized } from "../errors/Unauthorized";
@@ -25,6 +24,7 @@ describe('WHEN authenticate and user', () => {
 
   beforeEach(() => {
     process.env.PASSWORD_SALT='mocked-salt';
+    process.env.TOKEN_PRIVATE_KEY='mocked-token-private-key';
     repository = new UserRepositoryInMemory();
     createUser();
     useCase = new AuthenticateUserUseCase(repository);
@@ -35,7 +35,7 @@ describe('WHEN authenticate and user', () => {
       loginOrEmail: getNewUserData().login,
       password: getNewUserData().password
     });
-    expect(promise).resolves.toBeInstanceOf(User);
+    expect(promise).resolves.toBeInstanceOf(Object);
   });
 
   it('WITH valid email and password THEN return the user data', () => {
@@ -43,7 +43,7 @@ describe('WHEN authenticate and user', () => {
       loginOrEmail: getNewUserData().email,
       password: getNewUserData().password
     });
-    expect(promise).resolves.toBeInstanceOf(User);
+    expect(promise).resolves.toBeInstanceOf(Object);
   });
 
   it('WITH invalid login and password THEN raise an unauthorized exception', () => {

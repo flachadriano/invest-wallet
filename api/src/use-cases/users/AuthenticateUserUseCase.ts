@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { sign } from "jsonwebtoken";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { Unauthorized } from "../errors/Unauthorized";
 
@@ -7,10 +8,14 @@ interface IRequest {
   password: string;
 }
 
+interface IResponse {
+  token: string;
+}
+
 export class AuthenticateUserUseCase {
   constructor(private repository: IUserRepository) {}
 
-  async execute({ loginOrEmail, password }: IRequest) {
+  async execute({ loginOrEmail, password }: IRequest): Promise<IResponse> {
     let user = await this.repository.findByLogin(loginOrEmail);
     if (!user) {
       user = await this.repository.findByEmail(loginOrEmail);
@@ -25,6 +30,15 @@ export class AuthenticateUserUseCase {
       throw new Unauthorized();
     }
 
-    return user;
+    const token = sign({
+      name: user.name
+    }, process.env.TOKEN_PRIVATE_KEY, {
+      subject: user.login,
+      expiresIn: "15m"
+    });
+
+    return {
+      token
+    };
   }
 }
