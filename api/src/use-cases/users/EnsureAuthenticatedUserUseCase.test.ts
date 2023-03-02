@@ -1,0 +1,56 @@
+import { beforeEach, describe, expect, it } from "vitest";
+import { UserRepositoryInMemory } from "../../repositories/in-memory/UserRepositoryInMemory";
+import { IUserRepository } from "../../repositories/IUserRepository";
+import { Unauthorized } from "../errors/Unauthorized";
+import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
+import { CreateUserUseCase } from "./CreateUserUseCase";
+import { EnsureAuthenticateUserUseCase } from "./EnsureAuthenticatedUserUseCase";
+
+describe('WHEN try to access a protected endpoint', () => {
+  let repository: IUserRepository;
+  let useCase: EnsureAuthenticateUserUseCase;
+
+  const getNewUserData = () => {
+    return {
+      name: 'Adriano Flach',
+      email: 'flachadriano@gmail.com',
+      login: 'flachadriano',
+      password: '123'
+    };
+  };
+
+  const createUser = (repository: IUserRepository) => {
+    new CreateUserUseCase(repository).execute(getNewUserData());
+  };
+
+  beforeEach(() => {
+    process.env.PASSWORD_SALT='mocked-salt';
+    process.env.TOKEN_PRIVATE_KEY='mocked-token-private-key';
+    process.env.TOKEN_EXPIRES_IN='15m';
+    repository = new UserRepositoryInMemory();
+    createUser(repository);
+    useCase = new EnsureAuthenticateUserUseCase();
+  });
+
+  it('WITH a valid token THEN authenticate', async () => {
+    const authenticate = new AuthenticateUserUseCase(repository);
+    const { token } = await authenticate.execute({
+      loginOrEmail: getNewUserData().email,
+      password: getNewUserData().password
+    });
+    const authenticated = useCase.execute({ token: `Bearer ${token}` });
+    expect(authenticated).toBe(true);
+  });
+
+  it('WITH no token THEN raise unauthorized exception', () => {
+    expect(() => {
+      useCase.execute({ token: undefined });
+    }).throw(Unauthorized);
+  });
+
+  it('WITH an invalid token THEN raise unauthorized exception', () => {
+    expect(() => {
+      useCase.execute({ token: `Bearer mocked-token-info` });
+    }).throw(Unauthorized);
+  });
+});

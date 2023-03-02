@@ -6,7 +6,6 @@ import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
 import { CreateUserUseCase } from "./CreateUserUseCase";
 
 describe('WHEN authenticate and user', () => {
-  let repository: IUserRepository;
   let useCase: AuthenticateUserUseCase;
 
   const getNewUserData = () => {
@@ -18,15 +17,16 @@ describe('WHEN authenticate and user', () => {
     };
   };
 
-  const createUser = () => {
+  const createUser = (repository: IUserRepository) => {
     new CreateUserUseCase(repository).execute(getNewUserData());
   };
 
   beforeEach(() => {
     process.env.PASSWORD_SALT='mocked-salt';
     process.env.TOKEN_PRIVATE_KEY='mocked-token-private-key';
-    repository = new UserRepositoryInMemory();
-    createUser();
+    process.env.TOKEN_EXPIRES_IN='15m';
+    const repository = new UserRepositoryInMemory();
+    createUser(repository);
     useCase = new AuthenticateUserUseCase(repository);
   });
 

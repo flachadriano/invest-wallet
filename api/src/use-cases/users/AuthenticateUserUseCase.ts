@@ -34,7 +34,7 @@ export class AuthenticateUserUseCase {
       name: user.name
     }, process.env.TOKEN_PRIVATE_KEY, {
       subject: user.login,
-      expiresIn: "15m"
+      expiresIn: process.env.TOKEN_EXPIRES_IN
     });
 
     return {

@@ -18,6 +18,8 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-useless-escape": "off"
+        "no-useless-escape": "off",
+        "semi": "error",
+        "eol-last": "error"
     }
 }
