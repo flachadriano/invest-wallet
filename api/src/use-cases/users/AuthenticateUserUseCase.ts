@@ -1,5 +1,6 @@
-import crypto from "crypto";
-import { sign } from "jsonwebtoken";
+import { EncryptPasswordProvider } from "../../providers/EncryptPasswordProvider";
+import { GenerateRefreshTokenProvider } from "../../providers/GenerateRefreshTokenProvider";
+import { GenerateTokenProvider } from "../../providers/GenerateTokenProvider";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { Unauthorized } from "../errors/Unauthorized";
 
@@ -27,25 +28,15 @@ export class AuthenticateUserUseCase {
       throw new Unauthorized();
     }
 
-    const passwordHash = crypto.pbkdf2Sync(password, process.env.PASSWORD_SALT, 1000, 64, 'sha512').toString('hex');
+    const passwordHash = new EncryptPasswordProvider().execute(password);
     if (user.password != passwordHash) {
       throw new Unauthorized();
     }
 
-    const token = sign({
-      name: user.name
-    }, process.env.TOKEN_PRIVATE_KEY, {
-      subject: user.login,
-      expiresIn: process.env.TOKEN_EXPIRES_IN
-    });
+    const token = new GenerateTokenProvider().execute(user);
 
     if (rememberMe) {
-      const refreshToken = sign({
-        name: user.name
-      }, process.env.TOKEN_PRIVATE_KEY, {
-        subject: user.login,
-        expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN
-      });
+      const refreshToken = new GenerateRefreshTokenProvider().execute(user);
 
       return {
         token,

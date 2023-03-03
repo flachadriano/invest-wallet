@@ -7,6 +7,9 @@ export class RefreshToken {
   @PrimaryGeneratedColumn({ name: 'refresh_token_id' })
   id: number;
 
+  @Column({ type: 'text', nullable: false, unique: true })
+  token: string;
+
   @Column({ type: 'date', nullable: false })
   expiresIn: Date;
 

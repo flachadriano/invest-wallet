@@ -1,5 +1,5 @@
-import crypto from "crypto";
 import { User } from "../../entities/User";
+import { EncryptPasswordProvider } from "../../providers/EncryptPasswordProvider";
 import { IUserRepository } from "../../repositories/IUserRepository";
 import { Conflict } from "../errors/Conflict";
 import { UnprocessableEntity } from "../errors/UnprocessableEntity";
@@ -42,7 +42,7 @@ export class CreateUserUseCase {
       throw new Conflict('Login');
     }
 
-    const passwordHash = crypto.pbkdf2Sync(password, process.env.PASSWORD_SALT, 1000, 64, 'sha512').toString('hex');
+    const passwordHash = new EncryptPasswordProvider().execute(password);
     const user = await this.repository.create({ name, email, login, password: passwordHash });
     return user;
   }
