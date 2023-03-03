@@ -1,5 +1,5 @@
-import { User } from "../../entities/User";
-import { IUserRepository, IUserCreateData } from "../IUserRepository";
+import { User } from '../../entities/User';
+import { IUserRepository, IUserCreateData } from '../IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
   private nextId = 1;
@@ -19,12 +19,12 @@ export class UserRepositoryInMemory implements IUserRepository {
   }
 
   findByEmail(email: string): Promise<User> {
-    const user = this.users.find(user => user.email == email);
+    const user = this.users.find(u => u.email === email);
     return Promise.resolve(user);
   }
 
   findByLogin(login: string): Promise<User> {
-    const user = this.users.find(user => user.login == login);
+    const user = this.users.find(u => u.login === login);
     return Promise.resolve(user);
   }
 }

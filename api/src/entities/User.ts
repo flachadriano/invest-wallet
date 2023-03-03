@@ -1,9 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { RefreshToken } from "./RefreshTokens";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { RefreshToken } from './RefreshTokens';
 
 @Entity('users')
 export class User {
-
   @PrimaryGeneratedColumn({ name: 'user_id' })
   id: number;
 

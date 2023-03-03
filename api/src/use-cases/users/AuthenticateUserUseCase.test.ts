@@ -1,9 +1,9 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { UserRepositoryInMemory } from "../../repositories/in-memory/UserRepositoryInMemory";
-import { IUserRepository } from "../../repositories/IUserRepository";
-import { Unauthorized } from "../errors/Unauthorized";
-import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
-import { CreateUserUseCase } from "./CreateUserUseCase";
+import { beforeEach, describe, expect, it } from 'vitest';
+import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
+import { IUserRepository } from '../../repositories/IUserRepository';
+import { Unauthorized } from '../errors/Unauthorized';
+import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
+import { CreateUserUseCase } from './CreateUserUseCase';
 
 describe('WHEN authenticate and user', () => {
   let useCase: AuthenticateUserUseCase;

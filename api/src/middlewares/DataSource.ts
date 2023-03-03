@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import 'reflect-metadata';
-import { DataSource } from "typeorm";
-import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { DataSource } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 const port = (process.env.DB_PORT as unknown) as number | undefined;
 

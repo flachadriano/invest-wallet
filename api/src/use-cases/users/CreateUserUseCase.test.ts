@@ -70,5 +70,4 @@ describe('WHEN create an user', () => {
     const userCreatePromise = getUseCaseInstance().execute({ ...getNewUserData(), email: 'flachadriano@gmailcom' });
     expect(userCreatePromise).rejects.toBeInstanceOf(UnprocessableEntity);
   });
-
 });

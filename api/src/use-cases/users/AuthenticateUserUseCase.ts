@@ -1,8 +1,8 @@
-import { EncryptPasswordProvider } from "../../providers/EncryptPasswordProvider";
-import { GenerateRefreshTokenProvider } from "../../providers/GenerateRefreshTokenProvider";
-import { GenerateTokenProvider } from "../../providers/GenerateTokenProvider";
-import { IUserRepository } from "../../repositories/IUserRepository";
-import { Unauthorized } from "../errors/Unauthorized";
+import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
+import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
+import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
+import { IUserRepository } from '../../repositories/IUserRepository';
+import { Unauthorized } from '../errors/Unauthorized';
 
 interface IRequest {
   loginOrEmail: string;
@@ -29,7 +29,7 @@ export class AuthenticateUserUseCase {
     }
 
     const passwordHash = new EncryptPasswordProvider().execute(password);
-    if (user.password != passwordHash) {
+    if (user.password !== passwordHash) {
       throw new Unauthorized();
     }
 

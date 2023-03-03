@@ -19,7 +19,12 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "indent": ["error", 2],
         "no-useless-escape": "off",
-        "class-methods-use-this": "off"
+        "class-methods-use-this": "off",
+        "no-empty-function": "off",
+        "no-unused-vars": "off",
+        "object-curly-newline": "off",
+        "lines-between-class-members": "off"
     }
 }

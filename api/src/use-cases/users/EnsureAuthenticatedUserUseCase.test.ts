@@ -1,10 +1,10 @@
-import { beforeEach, describe, expect, it } from "vitest";
-import { UserRepositoryInMemory } from "../../repositories/in-memory/UserRepositoryInMemory";
-import { IUserRepository } from "../../repositories/IUserRepository";
-import { Unauthorized } from "../errors/Unauthorized";
-import { AuthenticateUserUseCase } from "./AuthenticateUserUseCase";
-import { CreateUserUseCase } from "./CreateUserUseCase";
-import { EnsureAuthenticateUserUseCase } from "./EnsureAuthenticatedUserUseCase";
+import { beforeEach, describe, expect, it } from 'vitest';
+import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
+import { IUserRepository } from '../../repositories/IUserRepository';
+import { Unauthorized } from '../errors/Unauthorized';
+import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
+import { CreateUserUseCase } from './CreateUserUseCase';
+import { EnsureAuthenticateUserUseCase } from './EnsureAuthenticatedUserUseCase';
 
 describe('WHEN try to access a protected endpoint', () => {
   let repository: IUserRepository;
@@ -19,14 +19,11 @@ describe('WHEN try to access a protected endpoint', () => {
     };
   };
 
-  const createUser = (repository: IUserRepository) => {
-    new CreateUserUseCase(repository).execute(getNewUserData());
+  const createUser = (repo: IUserRepository) => {
+    new CreateUserUseCase(repo).execute(getNewUserData());
   };
 
   beforeEach(() => {
-    process.env.PASSWORD_SALT='mocked-salt';
-    process.env.TOKEN_PRIVATE_KEY='mocked-token-private-key';
-    process.env.TOKEN_EXPIRES_IN='15m';
     repository = new UserRepositoryInMemory();
     createUser(repository);
     useCase = new EnsureAuthenticateUserUseCase();
@@ -50,7 +47,7 @@ describe('WHEN try to access a protected endpoint', () => {
 
   it('WITH an invalid token THEN raise unauthorized exception', () => {
     expect(() => {
-      useCase.execute({ token: `Bearer mocked-token-info` });
+      useCase.execute({ token: 'Bearer mocked-token-info' });
     }).throw(Unauthorized);
   });
 });

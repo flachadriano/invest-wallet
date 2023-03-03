@@ -1,8 +1,8 @@
-import { User } from "../../entities/User";
-import { EncryptPasswordProvider } from "../../providers/EncryptPasswordProvider";
-import { IUserRepository } from "../../repositories/IUserRepository";
-import { Conflict } from "../errors/Conflict";
-import { UnprocessableEntity } from "../errors/UnprocessableEntity";
+import { User } from '../../entities/User';
+import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
+import { IUserRepository } from '../../repositories/IUserRepository';
+import { Conflict } from '../errors/Conflict';
+import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 
 interface IRequest {
   name: string;

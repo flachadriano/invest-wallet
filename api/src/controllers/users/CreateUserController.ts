@@ -1,5 +1,5 @@
-import { Request, Response } from "express";
-import { CreateUserUseCase } from "../../use-cases/users/CreateUserUseCase";
+import { Request, Response } from 'express';
+import { CreateUserUseCase } from '../../use-cases/users/CreateUserUseCase';
 
 export class CreateUserController {
   constructor(private createUserUseCase: CreateUserUseCase) {}
