@@ -6,16 +6,18 @@ import { Unauthorized } from "../errors/Unauthorized";
 interface IRequest {
   loginOrEmail: string;
   password: string;
+  rememberMe?: boolean;
 }
 
 interface IResponse {
   token: string;
+  refreshToken?: string;
 }
 
 export class AuthenticateUserUseCase {
   constructor(private repository: IUserRepository) {}
 
-  async execute({ loginOrEmail, password }: IRequest): Promise<IResponse> {
+  async execute({ loginOrEmail, password, rememberMe }: IRequest): Promise<IResponse> {
     let user = await this.repository.findByLogin(loginOrEmail);
     if (!user) {
       user = await this.repository.findByEmail(loginOrEmail);
@@ -36,6 +38,20 @@ export class AuthenticateUserUseCase {
       subject: user.login,
       expiresIn: process.env.TOKEN_EXPIRES_IN
     });
+
+    if (rememberMe) {
+      const refreshToken = sign({
+        name: user.name
+      }, process.env.TOKEN_PRIVATE_KEY, {
+        subject: user.login,
+        expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN
+      });
+
+      return {
+        token,
+        refreshToken
+      };
+    }
 
     return {
       token

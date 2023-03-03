@@ -25,6 +25,7 @@ describe('WHEN authenticate and user', () => {
     process.env.PASSWORD_SALT='mocked-salt';
     process.env.TOKEN_PRIVATE_KEY='mocked-token-private-key';
     process.env.TOKEN_EXPIRES_IN='15m';
+    process.env.REFRESH_TOKEN_EXPIRES_IN='15d';
     const repository = new UserRepositoryInMemory();
     createUser(repository);
     useCase = new AuthenticateUserUseCase(repository);
@@ -60,5 +61,33 @@ describe('WHEN authenticate and user', () => {
       password: getNewUserData().password
     });
     expect(promise).rejects.toBeInstanceOf(Unauthorized);
+  });
+
+  describe('WITH remember', () => {
+    it('WITH the value true THEN it should return a refresh token info', async () => {
+      const token = await useCase.execute({
+        loginOrEmail: getNewUserData().login,
+        password: getNewUserData().password,
+        rememberMe: true
+      });
+      expect(token.refreshToken).not.toBeUndefined();
+    });
+
+    it('WITH the value false THEN it should not return a refresh token info', async () => {
+      const token = await useCase.execute({
+        loginOrEmail: getNewUserData().login,
+        password: getNewUserData().password,
+        rememberMe: false
+      });
+      expect(token.refreshToken).toBeUndefined();
+    });
+
+    it('WITH no value THEN it should not return a refresh token info', async () => {
+      const token = await useCase.execute({
+        loginOrEmail: getNewUserData().login,
+        password: getNewUserData().password
+      });
+      expect(token.refreshToken).toBeUndefined();
+    });
   });
 });
