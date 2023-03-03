@@ -1,4 +1,4 @@
-import AppDataSource from "../DataSource";
+import AppDataSource from "../middlewares/DataSource";
 import { User } from "../entities/User";
 import { IUserRepository } from "./IUserRepository";
 

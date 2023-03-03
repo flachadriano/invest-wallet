@@ -1,9 +1,7 @@
 import 'express-async-errors';
 import express, { NextFunction, Request, Response } from "express";
-
-import AppDataSource from "./src/DataSource";
+import AppDataSource from "./src/middlewares/DataSource";
 import routes from "./src/Routes";
-
 import { Conflict } from "./src/use-cases/errors/Conflict";
 import { UnprocessableEntity } from "./src/use-cases/errors/UnprocessableEntity";
 
@@ -25,7 +23,7 @@ AppDataSource.initialize().then(() => {
     } else {
       return res.status(500).json({ message: error.message });
     }
-  })
+  });
 
   app.listen(process.env.APP_PORT, () => console.log(`Server is running on port ${process.env.APP_PORT}`));
 
