@@ -35,10 +35,10 @@ When you want to add anything on database, just change the entity describe on en
 
 Then run the command:
 ```bash
-yarn migrate:generate
+yarn migration:generate
 ```
 
 It will generate a migration on `src/migrations`. Run the below command, as soon as possible, because if you generate two migrations before run it, it will broke the database:
 ```bash
-yarn migrate:run
+yarn migration:run
 ```
