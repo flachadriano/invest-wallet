@@ -2,6 +2,12 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
-    dir: './src'
+    dir: './src',
+    env: {
+      PASSWORD_SALT: 'mocked-salt',
+      TOKEN_PRIVATE_KEY: 'mocked-token-private-key',
+      TOKEN_EXPIRES_IN: '15m',
+      REFRESH_TOKEN_EXPIRES_IN: '15d'
+    }
   }
 });

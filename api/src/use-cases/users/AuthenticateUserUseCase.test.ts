@@ -22,10 +22,6 @@ describe('WHEN authenticate and user', () => {
   };
 
   beforeEach(() => {
-    process.env.PASSWORD_SALT='mocked-salt';
-    process.env.TOKEN_PRIVATE_KEY='mocked-token-private-key';
-    process.env.TOKEN_EXPIRES_IN='15m';
-    process.env.REFRESH_TOKEN_EXPIRES_IN='15d';
     const repository = new UserRepositoryInMemory();
     createUser(repository);
     useCase = new AuthenticateUserUseCase(repository);
