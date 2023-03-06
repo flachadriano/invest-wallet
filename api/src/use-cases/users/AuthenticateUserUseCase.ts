@@ -1,6 +1,7 @@
 import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
 import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
+import { IRefreshTokenRepository } from '../../repositories/IRefreshTokenRepository';
 import { IUserRepository } from '../../repositories/IUserRepository';
 import { Unauthorized } from '../errors/Unauthorized';
 
@@ -10,13 +11,16 @@ interface IRequest {
   rememberMe?: boolean;
 }
 
-interface IResponse {
+export interface IResponse {
   token: string;
   refreshToken?: string;
 }
 
 export class AuthenticateUserUseCase {
-  constructor(private repository: IUserRepository) {}
+  constructor(
+    private repository: IUserRepository,
+    private refreshTokenRepository: IRefreshTokenRepository
+  ) {}
 
   async execute({ loginOrEmail, password, rememberMe }: IRequest): Promise<IResponse> {
     let user = await this.repository.findByLogin(loginOrEmail);
@@ -36,7 +40,8 @@ export class AuthenticateUserUseCase {
     const token = new GenerateTokenProvider().execute(user);
 
     if (rememberMe) {
-      const refreshToken = new GenerateRefreshTokenProvider().execute(user);
+      const provider = new GenerateRefreshTokenProvider(this.refreshTokenRepository);
+      const refreshToken = provider.execute(user);
 
       return {
         token,
