@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import 'express-async-errors';
-import express, { NextFunction, Request, Response } from "express";
-import AppDataSource from "./src/middlewares/DataSource";
-import routes from "./src/Routes";
-import { Conflict } from "./src/use-cases/errors/Conflict";
-import { UnprocessableEntity } from "./src/use-cases/errors/UnprocessableEntity";
+import express, { NextFunction, Request, Response } from 'express';
+import AppDataSource from './src/middlewares/DataSource';
+import routes from './src/Routes';
+import { Conflict } from './src/use-cases/errors/Conflict';
+import { UnprocessableEntity } from './src/use-cases/errors/UnprocessableEntity';
 
 console.log('Connecting to the database...');
 AppDataSource.initialize().then(() => {
@@ -18,13 +19,12 @@ AppDataSource.initialize().then(() => {
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     if (error instanceof UnprocessableEntity) {
       return res.status(422).json({ message: error.message });
-    } else if (error instanceof Conflict) {
-      return res.status(409).json({ message: error.message });
-    } else {
-      return res.status(500).json({ message: error.message });
     }
+    if (error instanceof Conflict) {
+      return res.status(409).json({ message: error.message });
+    }
+    return res.status(500).json({ message: error.message });
   });
 
   app.listen(process.env.APP_PORT, () => console.log(`Server is running on port ${process.env.APP_PORT}`));
-
 }).catch(e => console.log('Failed to connect to the database:', e));

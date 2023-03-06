@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { CreateUserController } from "./controllers/users/CreateUserController";
-import { UserRepository } from "./repositories/UserRepository";
-import { CreateUserUseCase } from "./use-cases/users/CreateUserUseCase";
+import { Router } from 'express';
+import { CreateUserController } from './controllers/users/CreateUserController';
+import { UserRepository } from './repositories/UserRepository';
+import { CreateUserUseCase } from './use-cases/users/CreateUserUseCase';
 
 const routes = Router();
 
