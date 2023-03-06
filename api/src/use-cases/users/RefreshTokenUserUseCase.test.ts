@@ -27,7 +27,7 @@ describe('WHEN generate a new token', () => {
       .execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password,
-        rememberMe: true
+        keepConnected: true
       });
     const newToken = await new RefreshTokenUserUseCase(refreshTokenRepository)
       .execute({ refreshToken: loggedTokens.refreshToken });

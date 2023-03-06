@@ -61,12 +61,12 @@ describe('WHEN authenticate and user', () => {
     expect(promise).rejects.toBeInstanceOf(Unauthorized);
   });
 
-  describe('WITH remember', () => {
+  describe('WITH keep connected', () => {
     it('WITH the value true THEN it should return a refresh token info', async () => {
       const token = await useCase.execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password,
-        rememberMe: true
+        keepConnected: true
       });
       expect(token.refreshToken).not.toBeUndefined();
     });
@@ -75,7 +75,7 @@ describe('WHEN authenticate and user', () => {
       const token = await useCase.execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password,
-        rememberMe: false
+        keepConnected: false
       });
       expect(token.refreshToken).toBeUndefined();
     });

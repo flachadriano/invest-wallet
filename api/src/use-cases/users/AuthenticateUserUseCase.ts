@@ -8,7 +8,7 @@ import { Unauthorized } from '../errors/Unauthorized';
 interface IRequest {
   loginOrEmail: string;
   password: string;
-  rememberMe?: boolean;
+  keepConnected?: boolean;
 }
 
 export interface IResponse {
@@ -22,7 +22,7 @@ export class AuthenticateUserUseCase {
     private refreshTokenRepository: IRefreshTokenRepository
   ) {}
 
-  async execute({ loginOrEmail, password, rememberMe }: IRequest): Promise<IResponse> {
+  async execute({ loginOrEmail, password, keepConnected }: IRequest): Promise<IResponse> {
     let user = await this.repository.findByLogin(loginOrEmail);
     if (!user) {
       user = await this.repository.findByEmail(loginOrEmail);
@@ -39,7 +39,7 @@ export class AuthenticateUserUseCase {
 
     const token = new GenerateTokenProvider().execute(user);
 
-    if (rememberMe) {
+    if (keepConnected) {
       const provider = new GenerateRefreshTokenProvider(this.refreshTokenRepository);
       const refreshToken = provider.execute(user);
 
