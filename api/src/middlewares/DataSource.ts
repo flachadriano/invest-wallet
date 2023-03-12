@@ -12,8 +12,8 @@ const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  entities: ['src/entities/*.{ts,js}'],
-  migrations: ['src/migrations/*.{ts,js}'],
+  entities: [process.env.APP_ENV === 'dev' ? 'src/entities/*.ts' : 'build/src/entities/*.js'],
+  migrations: [process.env.APP_ENV === 'dev' ? 'src/migrations/*.ts' : 'build/src/migrations/*.js'],
   namingStrategy: new SnakeNamingStrategy(),
   ssl: true
 });
