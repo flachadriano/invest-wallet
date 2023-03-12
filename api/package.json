@@ -10,8 +10,8 @@
     "dev": "ts-node-dev server.ts",
     "prod": "tsc && node build/server.js",
     "test": "vitest",
-    "migration:generate": "typeorm-ts-node-commonjs -d ./src/DataSource.ts migration:generate ./src/migrations/default",
-    "migration:run": "typeorm-ts-node-commonjs -d ./src/DataSource.ts migration:run"
+    "migration:generate": "typeorm-ts-node-commonjs -d ./src/middlewares/DataSource.ts migration:generate ./src/migrations/default",
+    "migration:run": "typeorm-ts-node-commonjs -d ./src/middlewares/DataSource.ts migration:run"
   },
   "config": {
     "commitizen": {

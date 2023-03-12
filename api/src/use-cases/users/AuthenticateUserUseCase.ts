@@ -8,7 +8,7 @@ import { Unauthorized } from '../errors/Unauthorized';
 interface IRequest {
   loginOrEmail: string;
   password: string;
-  keepConnected?: boolean;
+  keepConnected: boolean;
 }
 
 export interface IResponse {

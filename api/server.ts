@@ -17,6 +17,7 @@ AppDataSource.initialize().then(() => {
   // it is necessary to add the last parameter 'next' to intercept exceptions
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
+    console.log(error);
     if (error instanceof UnprocessableEntity) {
       return res.status(422).json({ message: error.message });
     }
