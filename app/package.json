@@ -8,9 +8,17 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
+  "config": {
+    "commitizen": {
+      "path": "./cz"
+    }
+  },
   "dependencies": {
+    "@mui/material": "^5.11.12",
+    "@mui/styled-engine-sc": "^5.11.11",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.3.8"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
