@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { Box, Button, Input, InputLabel } from "@mui/material";
+import { Box, Button, Container, Input, InputLabel, TextField } from "@mui/material";
 
 export default function Login() {
   const signIn = (event: FormEvent<HTMLFormElement>) => {
@@ -8,16 +8,10 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={signIn} >
-      <InputLabel htmlFor="loginOrEmail">Login ou e-mail</InputLabel>
-      <Input id="loginOrEmail" name="loginOrEmail" required />
-
-      <InputLabel htmlFor="password">Senha</InputLabel>
-      <Input type="password" id="password" name="password" required />
-
-      <Box>
-        <Button type="submit">Entrar</Button>
-      </Box>
-    </form>
+    <Box component="form" onSubmit={signIn} noValidate sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <TextField name="loginOrEmail" label="Login ou e-mail" required autoFocus />
+      <TextField name="password" label="Senha" type="password" required />
+      <Button type="submit">Entrar</Button>
+    </Box>
   )
 }
