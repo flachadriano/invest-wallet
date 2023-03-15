@@ -12,6 +12,14 @@ AppDataSource.initialize().then(() => {
 
   const app = express();
   app.use(express.json());
+
+  app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    next();
+  });
+
   app.use(routes);
 
   // it is necessary to add the last parameter 'next' to intercept exceptions
@@ -19,12 +27,13 @@ AppDataSource.initialize().then(() => {
   app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
     console.log(error);
     if (error instanceof UnprocessableEntity) {
-      return res.status(422).json({ message: error.message });
+      res.status(422).json({ message: error.message });
+    } else if (error instanceof Conflict) {
+      res.status(409).json({ message: error.message });
+    } else {
+      res.status(500).json({ message: error.message });
     }
-    if (error instanceof Conflict) {
-      return res.status(409).json({ message: error.message });
-    }
-    return res.status(500).json({ message: error.message });
+    next();
   });
 
   app.listen(process.env.APP_PORT, () => console.log(`Server is running on port ${process.env.APP_PORT}`));
