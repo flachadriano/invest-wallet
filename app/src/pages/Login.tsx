@@ -1,18 +1,19 @@
-import { FormEvent } from "react";
-import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
-import { Container } from "@mui/system";
-import { authenticate } from "../services/User";
+import React from 'react'
+import { type FormEvent } from 'react'
+import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from '@mui/material'
+import { Container } from '@mui/system'
+import { authenticate } from '../services/User'
 
-export default function Login() {
-  const signIn = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData);
+export default function Login(): JSX.Element {
+  const signIn = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const data = Object.fromEntries(formData)
     authenticate({
       loginOrEmail: data.loginOrEmail.toString(),
       password: data.password.toString(),
       keppConnected: false,
-    });
+    })
   }
 
   return (

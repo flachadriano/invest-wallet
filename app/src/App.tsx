@@ -1,7 +1,8 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Login from "./pages/Login"
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import Login from './pages/Login'
 
-function App() {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
