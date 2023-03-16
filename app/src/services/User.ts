@@ -7,7 +7,5 @@ interface AuthenticateData {
 }
 
 export function authenticate(data: AuthenticateData) {
-  axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL
-  }).post('/users/authenticate', data);
+  axios.create().post('/users/authenticate', data);
 }
