@@ -3,7 +3,7 @@ import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTok
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
 import { IRefreshTokenRepository } from '../../repositories/IRefreshTokenRepository';
 import { IUserRepository } from '../../repositories/IUserRepository';
-import { Unauthorized } from '../errors/Unauthorized';
+import { Forbidden } from '../errors/Forbidden';
 
 interface IRequest {
   loginOrEmail: string;
@@ -29,12 +29,12 @@ export class AuthenticateUserUseCase {
     }
 
     if (!user) {
-      throw new Unauthorized();
+      throw new Forbidden('Usuário e/ou senha inválidos.');
     }
 
     const passwordHash = new EncryptPasswordProvider().execute(password);
     if (user.password !== passwordHash) {
-      throw new Unauthorized();
+      throw new Forbidden('Usuário e/ou senha inválidos.');
     }
 
     const token = new GenerateTokenProvider().execute(user);

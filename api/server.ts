@@ -5,6 +5,7 @@ import AppDataSource from './src/middlewares/DataSource';
 import routes from './src/Routes';
 import { Conflict } from './src/use-cases/errors/Conflict';
 import { UnprocessableEntity } from './src/use-cases/errors/UnprocessableEntity';
+import { Forbidden } from './src/use-cases/errors/Forbidden';
 
 console.log('Connecting to the database...');
 AppDataSource.initialize().then(() => {
@@ -30,6 +31,8 @@ AppDataSource.initialize().then(() => {
       res.status(422).json({ message: error.message });
     } else if (error instanceof Conflict) {
       res.status(409).json({ message: error.message });
+    } else if (error instanceof Forbidden) {
+      res.status(403).json({ message: error.message });
     } else {
       res.status(500).json({ message: error.message });
     }

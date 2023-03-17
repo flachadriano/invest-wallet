@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { RefreshTokenRepositoryInMemory } from '../../repositories/in-memory/RefreshTokenRepositoryInMemory';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
 import { IUserRepository } from '../../repositories/IUserRepository';
-import { Unauthorized } from '../errors/Unauthorized';
+import { Forbidden } from '../errors/Forbidden';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 import { CreateUserUseCase } from './CreateUserUseCase';
 
@@ -50,7 +50,7 @@ describe('WHEN authenticate and user', () => {
       loginOrEmail: 'asd',
       password: getNewUserData().password
     });
-    expect(promise).rejects.toBeInstanceOf(Unauthorized);
+    expect(promise).rejects.toBeInstanceOf(Forbidden);
   });
 
   it('WITH invalid email and password THEN raise an unauthorized exception', () => {
@@ -58,7 +58,7 @@ describe('WHEN authenticate and user', () => {
       loginOrEmail: 'asd@asd.com',
       password: getNewUserData().password
     });
-    expect(promise).rejects.toBeInstanceOf(Unauthorized);
+    expect(promise).rejects.toBeInstanceOf(Forbidden);
   });
 
   describe('WITH keep connected', () => {
