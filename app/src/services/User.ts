@@ -1,4 +1,4 @@
-import axios, { type AxiosResponse } from 'axios'
+import axios, { type AxiosResponse } from 'axios';
 
 interface AuthenticateData {
   loginOrEmail: string
@@ -7,5 +7,6 @@ interface AuthenticateData {
 }
 
 export async function authenticate(data: AuthenticateData): Promise<AxiosResponse> {
-  return await axios.create().post('/users/authenticate', data)
+  const res = await axios.create().post('/users/authenticate', data);
+  return res;
 }
