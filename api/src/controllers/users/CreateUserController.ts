@@ -9,6 +9,11 @@ export class CreateUserController {
 
     const user = await this.createUserUseCase.execute({ name, email, login, password });
 
-    response.json(user);
+    response.json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      login: user.login
+    });
   }
 }
