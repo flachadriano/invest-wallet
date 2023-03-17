@@ -5,7 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb-base"
+        "airbnb-base",
+        "airbnb-typescript"
     ],
     "overrides": [
     ],
