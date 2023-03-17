@@ -1,19 +1,23 @@
 import React, { FormEvent, useState } from 'react';
 import {
-  Box, Button, TextField, Typography,
+  Box, TextField, Typography,
 } from '@mui/material';
 import { Container } from '@mui/system';
-import * as UserService from '../../services/User';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { useNavigate } from 'react-router-dom';
+import * as UserService from '../../services/User';
 import { RoutePath } from '../../RoutePath';
+import Toast from '../../components/Toast';
 
 export default function SignUp(): JSX.Element {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const signIn = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
+    setLoading(true);
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
 
@@ -22,8 +26,11 @@ export default function SignUp(): JSX.Element {
       email: data.email.toString(),
       login: data.login.toString(),
       password: data.password.toString(),
-    }).then(() => navigate(RoutePath.LOGIN))
-      .catch((e: Error) => setError(e.message));
+    }).then(() => {
+      Toast.success('Usuário cadastrado com sucesso');
+      navigate(RoutePath.LOGIN);
+    }).catch((e: Error) => setError(e.message))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -38,7 +45,7 @@ export default function SignUp(): JSX.Element {
         <TextField name="email" label="E-mail" margin="normal" type="email" required />
         <TextField name="login" label="Nome de usuário" margin="normal" required />
         <TextField name="password" label="Senha" type="password" margin="normal" required />
-        <Button type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>Cadastrar</Button>
+        <LoadingButton type="submit" variant="contained" loading={loading} loadingPosition="start" fullWidth sx={{ mt: 2 }}>Cadastrar</LoadingButton>
       </Box>
     </Container>
   );
