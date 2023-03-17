@@ -18,6 +18,7 @@ export default function SignUp(): JSX.Element {
     event.preventDefault();
 
     setLoading(true);
+    setError('');
     const formData = new FormData(event.currentTarget);
     const data = Object.fromEntries(formData);
 
