@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import {
-  Box, TextField, Typography,
+  Box, Link, TextField, Typography,
 } from '@mui/material';
 import { Container } from '@mui/system';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -46,6 +46,7 @@ export default function SignUp(): JSX.Element {
         <TextField name="login" label="Nome de usuário" margin="normal" required />
         <TextField name="password" label="Senha" type="password" margin="normal" required />
         <LoadingButton type="submit" variant="contained" loading={loading} loadingPosition="start" fullWidth sx={{ mt: 2 }}>Cadastrar</LoadingButton>
+        <Link href={RoutePath.LOGIN} sx={{ mt: 2 }}>Cancelar</Link>
       </Box>
     </Container>
   );
