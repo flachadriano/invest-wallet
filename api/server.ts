@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import 'express-async-errors';
 import express, { NextFunction, Request, Response } from 'express';
+import cors from 'cors';
 import AppDataSource from './src/middlewares/DataSource';
 import routes from './src/Routes';
 import { Conflict } from './src/use-cases/errors/Conflict';
@@ -13,14 +14,7 @@ AppDataSource.initialize().then(() => {
 
   const app = express();
   app.use(express.json());
-
-  app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    next();
-  });
-
+  app.use(cors());
   app.use(routes);
 
   // it is necessary to add the last parameter 'next' to intercept exceptions
