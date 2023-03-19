@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useContext, useState } from 'react';
 import {
   Box, Checkbox, FormControlLabel, Link, TextField, Typography,
 } from '@mui/material';
@@ -7,9 +7,11 @@ import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../../services/User';
 import { RoutePath } from '../../RoutePath';
+import { SessionContext } from '../../contexts/SessionContext';
 
 export default function Login(): JSX.Element {
   const navigate = useNavigate();
+  const sessionData = useContext(SessionContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -25,7 +27,10 @@ export default function Login(): JSX.Element {
       loginOrEmail: data.loginOrEmail.toString(),
       password: data.password.toString(),
       keppConnected: false,
-    }).then(() => navigate(RoutePath.HOME))
+    }).then(() => {
+      sessionData.setAuthenticated(true);
+      navigate(RoutePath.HOME);
+    })
       .catch((e: Error) => setError(e.message))
       .finally(() => setLoading(false));
   };
