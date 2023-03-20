@@ -13,7 +13,10 @@ import './styles.css';
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const sessionData = useContext(SessionContext);
 
-  if (sessionData.authenticated) {
+  if (sessionData.loading) {
+    return <h1>Loading</h1>;
+  }
+  if (sessionData.token) {
     return children;
   }
   return <Login />;

@@ -5,7 +5,7 @@ import {
 import { Container } from '@mui/system';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
-import { authenticate } from '../../services/User';
+import { authenticate, AuthenticateResponse } from '../../services/User';
 import { RoutePath } from '../../RoutePath';
 import { SessionContext } from '../../contexts/SessionContext';
 
@@ -27,8 +27,9 @@ export default function Login(): JSX.Element {
       loginOrEmail: data.loginOrEmail.toString(),
       password: data.password.toString(),
       keppConnected: false,
-    }).then(() => {
-      sessionData.setAuthenticated(true);
+    }).then((userData: AuthenticateResponse) => {
+      sessionData.setToken(userData.token);
+      sessionData.setUser(userData.user);
       navigate(RoutePath.HOME);
     })
       .catch((e: Error) => setError(e.message))
@@ -46,7 +47,7 @@ export default function Login(): JSX.Element {
         <TextField name="loginOrEmail" label="Nome de usuário ou e-mail" margin="normal" required autoFocus />
         <TextField name="password" label="Senha" type="password" margin="normal" required />
         <FormControlLabel control={<Checkbox />} label="Lembrar de mim" />
-        <LoadingButton type="submit" variant="contained" loading={loading} loadingPosition="start" fullWidth>Entrar</LoadingButton>
+        <LoadingButton type="submit" variant="contained" loading={loading} loadingPosition="start" startIcon={<span />} fullWidth>Entrar</LoadingButton>
         <Link href={RoutePath.SIGNUP} sx={{ mt: 2 }}>Criar conta</Link>
       </Box>
     </Container>
