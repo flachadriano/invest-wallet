@@ -3,9 +3,9 @@ import User from './User';
 interface SessionData {
   loading: boolean;
   token?: string;
-  setToken: (token: string) => void;
   user?: User;
-  setUser: (user: User) => void;
+  signIn: (token: string) => void;
+  signOut: () => void;
 }
 
 export default SessionData;

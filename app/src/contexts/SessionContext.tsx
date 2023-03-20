@@ -1,5 +1,5 @@
-import jwtDecode from 'jwt-decode';
 import React, { createContext, useEffect, useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import SessionData from '../entities/SessionData';
 import User from '../entities/User';
 
@@ -11,12 +11,20 @@ interface IAuthProvider {
 
 function AuthProvider({ children }: IAuthProvider) {
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState<string>();
-  const [user, setUser] = useState<User>();
+  const [token, setToken] = useState<string | undefined>();
+  const [user, setUser] = useState<User | undefined>();
 
-  const updateToken = (newToken: string) => {
+  const signIn = (newToken: string) => {
     localStorage.setItem('token', newToken);
     setToken(newToken);
+    const jwtUser = jwtDecode<User>(newToken);
+    setUser(jwtUser);
+  };
+
+  const signOut = () => {
+    localStorage.removeItem('token');
+    setToken(undefined);
+    setUser(undefined);
   };
 
   useEffect(() => {
@@ -35,9 +43,9 @@ function AuthProvider({ children }: IAuthProvider) {
     <SessionContext.Provider value={{
       loading,
       token,
-      setToken: updateToken,
       user,
-      setUser
+      signIn,
+      signOut
     }}>
       {children}
     </SessionContext.Provider>

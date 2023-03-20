@@ -39,7 +39,6 @@ export default function SignUp(): JSX.Element {
       <Box component="form" onSubmit={signIn} sx={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 8, maxWidth: 300,
       }}>
-        <Typography component="h1" variant="h3">Tá investido</Typography>
         <Typography component="h1" variant="h5">Informe seus dados</Typography>
         <Typography component="h1" variant="h5" color="red">{error}</Typography>
         <TextField name="name" label="Nome" margin="normal" required autoFocus />

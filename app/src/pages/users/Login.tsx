@@ -28,8 +28,7 @@ export default function Login(): JSX.Element {
       password: data.password.toString(),
       keppConnected: false,
     }).then((userData: AuthenticateResponse) => {
-      sessionData.setToken(userData.token);
-      sessionData.setUser(userData.user);
+      sessionData.signIn(userData.token);
       navigate(RoutePath.HOME);
     })
       .catch((e: Error) => setError(e.message))
@@ -41,7 +40,6 @@ export default function Login(): JSX.Element {
       <Box component="form" onSubmit={signIn} noValidate sx={{
         display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 8, maxWidth: 300,
       }}>
-        <Typography component="h1" variant="h3">Tá investido</Typography>
         <Typography component="h1" variant="h5">Login</Typography>
         <Typography component="h1" variant="h5" color="red">{error}</Typography>
         <TextField name="loginOrEmail" label="Nome de usuário ou e-mail" margin="normal" required autoFocus />
