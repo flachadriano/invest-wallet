@@ -1,3 +1,4 @@
+import { UserResponse } from '../../entities/UserResponse';
 import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
 import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
@@ -14,6 +15,7 @@ interface IRequest {
 export interface IResponse {
   token: string;
   refreshToken?: string;
+  user: UserResponse;
 }
 
 export class AuthenticateUserUseCase {
@@ -45,12 +47,26 @@ export class AuthenticateUserUseCase {
 
       return {
         token,
-        refreshToken
+        refreshToken,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          login: user.login,
+          createdAt: user.createdAt
+        }
       };
     }
 
     return {
-      token
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        login: user.login,
+        createdAt: user.createdAt
+      }
     };
   }
 }

@@ -13,7 +13,8 @@ export class CreateUserController {
       id: user.id,
       name: user.name,
       email: user.email,
-      login: user.login
+      login: user.login,
+      createdAt: user.createdAt
     });
   }
 }
