@@ -1,35 +1,29 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { Box } from '@mui/material';
 import { RoutePath } from './RoutePath';
-import { AuthProvider, SessionContext } from './contexts/SessionContext';
+import { AuthProvider } from './contexts/SessionContext';
+import { ColorProvider } from './contexts/ColorModeContext';
 import Header from './components/Header';
-
+import RequireAuth from './components/RequireAuth';
 import Login from './pages/users/Login';
 import SignUp from './pages/users/SignUp';
 import Home from './pages/Home';
-
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
-const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  const sessionData = useContext(SessionContext);
-
-  if (sessionData.loading) {
-    return <h1>Loading</h1>;
-  }
-  if (sessionData.token) {
-    return children;
-  }
-  return <Login />;
-};
-
 function App(): JSX.Element {
   return (
-    <div>
-      <ToastContainer />
+    <ColorProvider>
       <AuthProvider>
-        <div>
+        <Box sx={{
+          height: '100vh',
+          width: '100%',
+          bgcolor: 'background.default',
+          color: 'text.primary',
+        }}>
+          <ToastContainer />
           <Header />
           <BrowserRouter>
             <Routes>
@@ -38,9 +32,9 @@ function App(): JSX.Element {
               <Route path={RoutePath.HOME} element={<RequireAuth><Home /></RequireAuth>} />
             </Routes>
           </BrowserRouter>
-        </div>
+        </Box>
       </AuthProvider>
-    </div>
+    </ColorProvider>
   );
 }
 
