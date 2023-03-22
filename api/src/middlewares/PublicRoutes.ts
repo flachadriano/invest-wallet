@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { AuthenticateUserController } from './controllers/users/AuthenticateUserController';
-import { CreateUserController } from './controllers/users/CreateUserController';
-import { RefreshTokenUserController } from './controllers/users/RefreshTokenUserController';
-import { RefreshTokenRepository } from './repositories/RefreshTokenRepository';
-import { UserRepository } from './repositories/UserRepository';
-import { AuthenticateUserUseCase } from './use-cases/users/AuthenticateUserUseCase';
-import { CreateUserUseCase } from './use-cases/users/CreateUserUseCase';
-import { RefreshTokenUserUseCase } from './use-cases/users/RefreshTokenUserUseCase';
+import { AuthenticateUserController } from '../controllers/users/AuthenticateUserController';
+import { CreateUserController } from '../controllers/users/CreateUserController';
+import { RefreshTokenUserController } from '../controllers/users/RefreshTokenUserController';
+import { RefreshTokenRepository } from '../repositories/RefreshTokenRepository';
+import { UserRepository } from '../repositories/UserRepository';
+import { AuthenticateUserUseCase } from '../use-cases/users/AuthenticateUserUseCase';
+import { CreateUserUseCase } from '../use-cases/users/CreateUserUseCase';
+import { RefreshTokenUserUseCase } from '../use-cases/users/RefreshTokenUserUseCase';
 
 const routes = Router();
 
