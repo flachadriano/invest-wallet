@@ -12,8 +12,13 @@ import SignUp from './pages/users/SignUp';
 import Home from './pages/Home';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
+import Menu from './components/Menu';
 
 function App(): JSX.Element {
+  const protectedRoutes = [{
+    path: RoutePath.HOME, render: () => <Home />
+  }];
+
   return (
     <ColorProvider>
       <AuthProvider>
@@ -25,13 +30,18 @@ function App(): JSX.Element {
         }}>
           <ToastContainer />
           <Header />
-          <BrowserRouter>
-            <Routes>
-              <Route path={RoutePath.LOGIN} element={<Login />} />
-              <Route path={RoutePath.SIGNUP} element={<SignUp />} />
-              <Route path={RoutePath.HOME} element={<RequireAuth><Home /></RequireAuth>} />
-            </Routes>
-          </BrowserRouter>
+          <Box sx={{ display: 'flex', height: '100%' }}>
+            <Menu />
+            <BrowserRouter>
+              <Routes>
+                <Route path={RoutePath.LOGIN} element={<Login />} />
+                <Route path={RoutePath.SIGNUP} element={<SignUp />} />
+                {protectedRoutes.map(({ path, render }) => (
+                  <Route key={path} path={path} element={<RequireAuth>{render()}</RequireAuth>} />
+                ))}
+              </Routes>
+            </BrowserRouter>
+          </Box>
         </Box>
       </AuthProvider>
     </ColorProvider>

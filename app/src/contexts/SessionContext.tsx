@@ -13,6 +13,7 @@ function AuthProvider({ children }: IAuthProvider) {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState<string | undefined>();
   const [user, setUser] = useState<User | undefined>();
+  const [showMenu, setShowMenu] = useState(false);
 
   const signIn = (newToken: string) => {
     localStorage.setItem('token', newToken);
@@ -45,7 +46,9 @@ function AuthProvider({ children }: IAuthProvider) {
       token,
       user,
       signIn,
-      signOut
+      signOut,
+      showMenu,
+      toggleMenu: () => setShowMenu(!showMenu)
     }}>
       {children}
     </SessionContext.Provider>

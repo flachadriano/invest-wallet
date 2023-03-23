@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import {
   AppBar, Box, Button, IconButton, Toolbar, Typography,
 } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { SessionContext } from '../contexts/SessionContext';
@@ -15,6 +16,9 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          <IconButton color="inherit" onClick={sessionData.toggleMenu} sx={{ mr: 2 }}>
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Tá investido
           </Typography>
