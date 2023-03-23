@@ -13,10 +13,13 @@ import Home from './pages/Home';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 import Menu from './components/Menu';
+import BrokerList from './pages/brokers/List';
 
 function App(): JSX.Element {
   const protectedRoutes = [{
-    path: RoutePath.HOME, render: () => <Home />
+    path: RoutePath.HOME, render: () => <Home />,
+  }, {
+    path: RoutePath.BROKERS, render: () => <BrokerList />
   }];
 
   return (
@@ -32,15 +35,17 @@ function App(): JSX.Element {
           <Header />
           <Box sx={{ display: 'flex', height: '100%' }}>
             <Menu />
-            <BrowserRouter>
-              <Routes>
-                <Route path={RoutePath.LOGIN} element={<Login />} />
-                <Route path={RoutePath.SIGNUP} element={<SignUp />} />
-                {protectedRoutes.map(({ path, render }) => (
-                  <Route key={path} path={path} element={<RequireAuth>{render()}</RequireAuth>} />
-                ))}
-              </Routes>
-            </BrowserRouter>
+            <Box sx={{ p: 3 }}>
+              <BrowserRouter>
+                <Routes>
+                  <Route path={RoutePath.LOGIN} element={<Login />} />
+                  <Route path={RoutePath.SIGNUP} element={<SignUp />} />
+                  {protectedRoutes.map(({ path, render }) => (
+                    <Route key={path} path={path} element={<RequireAuth>{render()}</RequireAuth>} />
+                  ))}
+                </Routes>
+              </BrowserRouter>
+            </Box>
           </Box>
         </Box>
       </AuthProvider>
