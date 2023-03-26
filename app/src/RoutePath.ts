@@ -3,4 +3,6 @@ export enum RoutePath {
   SIGNUP = '/cadastrar',
   HOME = '/',
   BROKERS = '/corretoras',
+  BROKER_EDIT = '/corretoras/:id',
+  BROKER_NEW = '/corretoras/novo',
 }

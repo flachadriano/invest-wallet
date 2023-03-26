@@ -1,6 +1,6 @@
 import User from './User';
 
-interface SessionData {
+export default interface SessionData {
   loading: boolean;
   token?: string;
   user?: User;
@@ -9,5 +9,3 @@ interface SessionData {
   signIn: (token: string) => void;
   signOut: () => void;
 }
-
-export default SessionData;

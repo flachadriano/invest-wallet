@@ -1,4 +1,5 @@
 import React from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { Box } from '@mui/material';
@@ -10,46 +11,60 @@ import RequireAuth from './components/RequireAuth';
 import Login from './pages/users/Login';
 import SignUp from './pages/users/SignUp';
 import Home from './pages/Home';
-import 'react-toastify/dist/ReactToastify.css';
-import './styles.css';
 import Menu from './components/Menu';
 import BrokerList from './pages/brokers/List';
+import BrokerEdit from './pages/brokers/Edit';
+import 'react-toastify/dist/ReactToastify.css';
+import './styles.css';
+import BrokerNew from './pages/brokers/New';
 
 function App(): JSX.Element {
+  const queryClient = new QueryClient();
+
   const protectedRoutes = [{
     path: RoutePath.HOME, render: () => <Home />,
   }, {
     path: RoutePath.BROKERS, render: () => <BrokerList />
+  }, {
+    path: RoutePath.BROKER_EDIT, render: () => <BrokerEdit />
+  }, {
+    path: RoutePath.BROKER_NEW, render: () => <BrokerNew />
   }];
 
   return (
-    <ColorProvider>
-      <AuthProvider>
-        <Box sx={{
-          height: '100vh',
-          width: '100%',
-          bgcolor: 'background.default',
-          color: 'text.primary',
-        }}>
-          <ToastContainer />
-          <Header />
-          <Box sx={{ display: 'flex', height: '100%' }}>
-            <Menu />
-            <Box sx={{ p: 3 }}>
-              <BrowserRouter>
-                <Routes>
-                  <Route path={RoutePath.LOGIN} element={<Login />} />
-                  <Route path={RoutePath.SIGNUP} element={<SignUp />} />
-                  {protectedRoutes.map(({ path, render }) => (
-                    <Route key={path} path={path} element={<RequireAuth>{render()}</RequireAuth>} />
-                  ))}
-                </Routes>
-              </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ColorProvider>
+        <AuthProvider>
+          <Box sx={{
+            height: '100vh',
+            width: '100%',
+            bgcolor: 'background.default',
+            color: 'text.primary',
+          }}>
+            <ToastContainer />
+            <Header />
+            <Box sx={{ display: 'flex', height: '100%' }}>
+              <Menu />
+              <Box sx={{ p: 3, display: 'flex', flex: 1 }}>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path={RoutePath.LOGIN} element={<Login />} />
+                    <Route path={RoutePath.SIGNUP} element={<SignUp />} />
+                    {protectedRoutes.map(({ path, render }) => (
+                      <Route
+                        key={path}
+                        path={path}
+                        element={<RequireAuth>{render()}</RequireAuth>}
+                      />
+                    ))}
+                  </Routes>
+                </BrowserRouter>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      </AuthProvider>
-    </ColorProvider>
+        </AuthProvider>
+      </ColorProvider>
+    </QueryClientProvider>
   );
 }
 

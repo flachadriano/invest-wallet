@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import SessionData from '../entities/SessionData';
 import User from '../entities/User';
+import api from '../services/Api';
 
 const SessionContext = createContext<SessionData>(null!);
 
@@ -10,7 +11,7 @@ interface IAuthProvider {
 }
 
 function AuthProvider({ children }: IAuthProvider) {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | undefined>();
   const [user, setUser] = useState<User | undefined>();
   const [showMenu, setShowMenu] = useState(false);
@@ -18,6 +19,7 @@ function AuthProvider({ children }: IAuthProvider) {
   const signIn = (newToken: string) => {
     localStorage.setItem('token', newToken);
     setToken(newToken);
+
     const jwtUser = jwtDecode<User>(newToken);
     setUser(jwtUser);
   };
@@ -35,6 +37,11 @@ function AuthProvider({ children }: IAuthProvider) {
         setToken(storageToken);
         const jwtUser = jwtDecode<User>(storageToken);
         setUser(jwtUser);
+
+        api.defaults.headers.common = {
+          Authorization: `Bearer ${storageToken}`,
+        };
+
         setLoading(false);
       }
     }
