@@ -1,6 +1,6 @@
 export default interface Broker {
   id: number;
-  acronym: string;
   name: string;
+  legalName: string;
   cnpj: string;
 }

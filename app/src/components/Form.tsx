@@ -13,7 +13,7 @@ export default function Form({
   title, onSubmit, children, loading
 }: IForm) {
   return (
-    <Box component="form" onSubmit={onSubmit} noValidate sx={{
+    <Box component="form" onSubmit={onSubmit} sx={{
       display: 'flex', flexDirection: 'column'
     }}>
       <Typography component="h1" variant="h5">{title}</Typography>

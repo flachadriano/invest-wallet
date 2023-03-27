@@ -15,21 +15,19 @@ export default function BrokerNew() {
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
     postBroker({
-      acronym: data.acronym.toString(),
+      legalName: data.legalName.toString(),
       name: data.name.toString(),
       cnpj: data.cnpj.toString()
     }).then(() => {
       Toast.success('Corretora adicionada com sucesso.');
       navigate(RoutePath.BROKERS);
-    });
-    // TODO catch
-    // TODO make name optional
+    }).catch(() => Toast.error('Não foi possível adicionar a corretora, tente novamente mais tarde.'));
   };
 
   return (
     <Form title="Adicionar corretora" loading={false} onSubmit={onSubmit}>
-      <TextField name="acronym" label="Nome" margin="normal" required autoFocus />
-      <TextField name="name" label="Razão social" margin="normal" />
+      <TextField name="name" label="Nome" margin="normal" required autoFocus />
+      <TextField name="legalName" label="Razão social" margin="normal" />
       <TextField name="cnpj" label="CNPJ" margin="normal" />
     </Form>
   );

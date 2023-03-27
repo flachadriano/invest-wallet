@@ -2,8 +2,8 @@ import Broker from '../entities/Broker';
 import api from './Api';
 
 interface Payload {
-  acronym: string;
   name: string;
+  legalName: string;
   cnpj: string;
 }
 

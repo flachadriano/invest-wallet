@@ -30,8 +30,8 @@ export default function BrokerList() {
 
   const columns: GridColDef<Broker>[] = [
     { field: 'id', headerName: 'ID', width: 90 },
-    { field: 'acronym', headerName: 'Nome' },
-    { field: 'name', headerName: 'Razão social' },
+    { field: 'name', headerName: 'Nome' },
+    { field: 'legalName', headerName: 'Razão social' },
     { field: 'cnpj', headerName: 'CNPJ', width: 110 },
     {
       field: '', headerName: '', width: 150, renderCell: renderActions
