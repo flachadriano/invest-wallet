@@ -3,14 +3,14 @@ import { User } from '../entities/User';
 
 export interface IBrokerCreateData {
   user: User;
-  acronym: string;
   name: string;
+  legalName: string;
   cnpj: string;
 }
 
 export interface IBrokerUpdateData {
-  acronym: string;
   name: string;
+  legalName: string;
   cnpj: string;
 }
 

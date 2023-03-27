@@ -5,16 +5,16 @@ export class CreateBrokerController {
   constructor(private createBrokerUseCase: CreateBrokerUseCase) {}
 
   async handle(request: Request, response: Response) {
-    const { name, acronym, cnpj } = request.body;
+    const { name, legalName, cnpj } = request.body;
 
     const broker = await this.createBrokerUseCase.execute({
-      user: request.currentUser, name, acronym, cnpj
+      user: request.currentUser, name, legalName, cnpj
     });
 
     response.json({
       id: broker.id,
       name: broker.name,
-      acronym: broker.acronym,
+      legalName: broker.legalName,
       cnpj: broker.cnpj
     });
   }

@@ -5,20 +5,17 @@ import { NotFound } from '../errors/NotFound';
 import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 
 interface IRequest {
-  acronym: string;
   name: string;
+  legalName: string;
   cnpj: string;
 }
 
 export class UpdateBrokerUseCase {
   constructor(private repository: IBrokerRepository) {}
 
-  async execute(user: User, id: number, { acronym, name, cnpj }: IRequest): Promise<Broker> {
-    if (!acronym) {
-      throw new UnprocessableEntity('Nome');
-    }
+  async execute(user: User, id: number, { name, legalName, cnpj }: IRequest): Promise<Broker> {
     if (!name) {
-      throw new UnprocessableEntity('Razão social');
+      throw new UnprocessableEntity('Nome');
     }
 
     if (cnpj && cnpj.length !== 14) {
@@ -30,6 +27,6 @@ export class UpdateBrokerUseCase {
       throw new NotFound('Corretora');
     }
 
-    return this.repository.update(user, id, { acronym, name, cnpj });
+    return this.repository.update(user, id, { name, legalName, cnpj });
   }
 }

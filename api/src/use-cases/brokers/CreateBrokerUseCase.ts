@@ -5,26 +5,23 @@ import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 
 interface IRequest {
   user: User;
-  acronym: string;
   name: string;
+  legalName: string;
   cnpj: string;
 }
 
 export class CreateBrokerUseCase {
   constructor(private repository: IBrokerRepository) {}
 
-  async execute({ user, acronym, name, cnpj }: IRequest): Promise<Broker> {
-    if (!acronym) {
-      throw new UnprocessableEntity('Nome');
-    }
+  async execute({ user, name, legalName, cnpj }: IRequest): Promise<Broker> {
     if (!name) {
-      throw new UnprocessableEntity('Razão social');
+      throw new UnprocessableEntity('Nome');
     }
 
     if (cnpj && cnpj.length !== 14) {
       throw new UnprocessableEntity('CNPJ deve ter exatamente 14 caracteres');
     }
 
-    return this.repository.create({ user, acronym, name, cnpj });
+    return this.repository.create({ user, name, legalName, cnpj });
   }
 }

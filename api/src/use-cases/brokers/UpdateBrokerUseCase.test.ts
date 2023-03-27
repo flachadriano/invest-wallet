@@ -27,7 +27,7 @@ describe('WHEN update a Broker', () => {
   const getNewBrokerData = () => {
     return {
       name: 'Broker 1',
-      acronym: 'B1',
+      legalName: 'Broker B1 DTVM',
       cnpj: 'XXXXXXXX0001XX'
     };
   };
@@ -35,7 +35,7 @@ describe('WHEN update a Broker', () => {
   const getChangedBrokerData = () => {
     return {
       name: 'Broker 2',
-      acronym: 'B2',
+      legalName: 'Broker B2 DTVM',
       cnpj: 'XXXXXXXX0001XX'
     };
   };
@@ -60,9 +60,9 @@ describe('WHEN update a Broker', () => {
     expect(updatedBrokerPromise).rejects.toBeInstanceOf(NotFound);
   });
 
-  it('WITH no acronym THEN should raise an error', () => {
-    const updatedBrokerPromise = useCase.execute(user, broker.id, { ...getChangedBrokerData(), acronym: '' });
-    expect(updatedBrokerPromise).rejects.toBeInstanceOf(UnprocessableEntity);
+  it('WITH no legal name THEN should raise an error', async () => {
+    const updatedBroker = await useCase.execute(user, broker.id, { ...getChangedBrokerData(), legalName: '' });
+    expect(updatedBroker).toBeInstanceOf(Broker);
   });
 
   it('WITH no name THEN should raise an error', () => {

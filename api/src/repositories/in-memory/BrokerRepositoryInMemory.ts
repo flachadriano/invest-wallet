@@ -10,8 +10,8 @@ export class BrokerRepositoryInMemory implements IBrokerRepository {
     const newBroker = new Broker();
     newBroker.id = this.nextId;
     newBroker.user = brokerData.user;
-    newBroker.acronym = brokerData.acronym;
     newBroker.name = brokerData.name;
+    newBroker.legalName = brokerData.legalName;
     newBroker.cnpj = brokerData.cnpj;
     this.nextId += 1;
     this.brokers.push(newBroker);
@@ -34,8 +34,8 @@ export class BrokerRepositoryInMemory implements IBrokerRepository {
     const index = this.brokers.findIndex(b => b.user.id === user.id && b.id === id);
     if (index >= 0) {
       const broker = this.brokers[index];
-      broker.acronym = brokerData.acronym;
       broker.name = brokerData.name;
+      broker.legalName = brokerData.legalName;
       broker.cnpj = brokerData.cnpj;
       this.brokers[index] = broker;
       return Promise.resolve(broker);

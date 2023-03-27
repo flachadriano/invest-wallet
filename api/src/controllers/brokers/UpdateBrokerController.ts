@@ -6,16 +6,16 @@ export class UpdateBrokerController {
 
   async handle(request: Request, response: Response) {
     const id = parseInt(request.params.id, 10);
-    const { name, acronym, cnpj } = request.body;
+    const { name, legalName, cnpj } = request.body;
 
     const broker = await this.updateBrokerUseCase.execute(request.currentUser, id, {
-      name, acronym, cnpj
+      name, legalName, cnpj
     });
 
     response.json({
       id: broker.id,
       name: broker.name,
-      acronym: broker.acronym,
+      legalName: broker.legalName,
       cnpj: broker.cnpj
     });
   }

@@ -10,10 +10,10 @@ export class Broker {
     user: User;
 
   @Column({ type: 'text' })
-    acronym: string;
-
-  @Column({ type: 'text' })
     name: string;
+
+  @Column({ type: 'text', nullable: true })
+    legalName: string;
 
   @Column({ type: 'text', nullable: true })
     cnpj: string;

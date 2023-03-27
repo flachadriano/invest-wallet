@@ -21,7 +21,7 @@ describe('WHEN create a broker', () => {
   const getNewBrokerData = () => {
     return {
       name: 'Broker 1',
-      acronym: 'B1',
+      legalName: 'Broker B1 DTVM',
       cnpj: 'XXXXXXXX0001XX'
     };
   };
@@ -37,11 +37,11 @@ describe('WHEN create a broker', () => {
     expect(newBroker).instanceOf(Broker);
   });
 
-  it('WITH no acronym THEN should raise an error', async () => {
+  it('WITH no legal name THEN create a broker', async () => {
     const userRepository = new UserRepositoryInMemory();
     const user = await new CreateUserUseCase(userRepository).execute(getNewUserData());
-    const newBrokerPromise = useCase.execute({ user, ...getNewBrokerData(), acronym: '' });
-    expect(newBrokerPromise).rejects.toBeInstanceOf(UnprocessableEntity);
+    const newBroker = await useCase.execute({ user, ...getNewBrokerData(), legalName: '' });
+    expect(newBroker).instanceOf(Broker);
   });
 
   it('WITH no name THEN should raise an error', async () => {
