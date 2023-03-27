@@ -1,5 +1,5 @@
 import { RefreshToken } from '../../entities/RefreshTokens';
-import { IRefreshTokenCreateData, IRefreshTokenRepository } from '../IRefreshTokenRepository';
+import { IRefreshTokenCreateData, IRefreshTokenRepository } from '../interfaces/IRefreshTokenRepository';
 
 export class RefreshTokenRepositoryInMemory implements IRefreshTokenRepository {
   refreshTokens: RefreshToken[] = [];

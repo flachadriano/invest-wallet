@@ -1,5 +1,5 @@
-import { Broker } from '../entities/Broker';
-import { User } from '../entities/User';
+import { Broker } from '../../entities/Broker';
+import { User } from '../../entities/User';
 
 export interface IBrokerCreateData {
   user: User;

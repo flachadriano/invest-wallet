@@ -1,7 +1,7 @@
 import { Broker } from '../entities/Broker';
 import { User } from '../entities/User';
 import AppDataSource from '../middlewares/DataSource';
-import { IBrokerCreateData, IBrokerRepository, IBrokerUpdateData } from './IBrokerRepository';
+import { IBrokerCreateData, IBrokerRepository, IBrokerUpdateData } from './interfaces/IBrokerRepository';
 
 export class BrokerRepository implements IBrokerRepository {
   private repository = AppDataSource.getRepository(Broker);

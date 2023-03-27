@@ -1,6 +1,6 @@
 import { Broker } from '../../entities/Broker';
 import { User } from '../../entities/User';
-import { IBrokerRepository } from '../../repositories/IBrokerRepository';
+import { IBrokerRepository } from '../../repositories/interfaces/IBrokerRepository';
 
 interface IRequest {
   user: User;

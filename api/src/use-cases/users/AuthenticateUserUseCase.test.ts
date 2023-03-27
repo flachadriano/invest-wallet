@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { RefreshTokenRepositoryInMemory } from '../../repositories/in-memory/RefreshTokenRepositoryInMemory';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
-import { IUserRepository } from '../../repositories/IUserRepository';
+import { IUserRepository } from '../../repositories/interfaces/IUserRepository';
 import { Forbidden } from '../errors/Forbidden';
 import { AuthenticateUserUseCase } from './AuthenticateUserUseCase';
 import { CreateUserUseCase } from './CreateUserUseCase';

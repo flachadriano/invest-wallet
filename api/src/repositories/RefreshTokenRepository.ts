@@ -1,5 +1,5 @@
 import AppDataSource from '../middlewares/DataSource';
-import { IRefreshTokenCreateData, IRefreshTokenRepository } from './IRefreshTokenRepository';
+import { IRefreshTokenCreateData, IRefreshTokenRepository } from './interfaces/IRefreshTokenRepository';
 import { RefreshToken } from '../entities/RefreshTokens';
 
 export class RefreshTokenRepository implements IRefreshTokenRepository {

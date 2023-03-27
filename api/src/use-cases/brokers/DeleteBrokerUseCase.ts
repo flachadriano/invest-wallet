@@ -1,5 +1,5 @@
 import { User } from '../../entities/User';
-import { IBrokerRepository } from '../../repositories/IBrokerRepository';
+import { IBrokerRepository } from '../../repositories/interfaces/IBrokerRepository';
 import { NotFound } from '../errors/NotFound';
 
 export class DeleteBrokerUseCase {

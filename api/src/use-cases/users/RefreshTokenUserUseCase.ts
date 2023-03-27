@@ -1,5 +1,5 @@
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
-import { IRefreshTokenRepository } from '../../repositories/IRefreshTokenRepository';
+import { IRefreshTokenRepository } from '../../repositories/interfaces/IRefreshTokenRepository';
 import { Unauthorized } from '../errors/Unauthorized';
 
 interface IRequest {

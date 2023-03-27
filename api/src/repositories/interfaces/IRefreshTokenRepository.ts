@@ -1,5 +1,5 @@
-import { RefreshToken } from '../entities/RefreshTokens';
-import { User } from '../entities/User';
+import { RefreshToken } from '../../entities/RefreshTokens';
+import { User } from '../../entities/User';
 
 export interface IRefreshTokenCreateData {
   token: string;

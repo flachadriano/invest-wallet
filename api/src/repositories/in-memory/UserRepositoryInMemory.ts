@@ -1,5 +1,5 @@
 import { User } from '../../entities/User';
-import { IUserRepository, IUserCreateData } from '../IUserRepository';
+import { IUserRepository, IUserCreateData } from '../interfaces/IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
   private nextId = 1;

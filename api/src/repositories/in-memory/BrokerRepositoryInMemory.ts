@@ -1,6 +1,6 @@
 import { Broker } from '../../entities/Broker';
 import { User } from '../../entities/User';
-import { IBrokerCreateData, IBrokerRepository, IBrokerUpdateData } from '../IBrokerRepository';
+import { IBrokerCreateData, IBrokerRepository, IBrokerUpdateData } from '../interfaces/IBrokerRepository';
 
 export class BrokerRepositoryInMemory implements IBrokerRepository {
   private nextId = 1;

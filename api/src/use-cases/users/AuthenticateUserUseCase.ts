@@ -2,8 +2,8 @@ import { UserResponse } from '../../entities/UserResponse';
 import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
 import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
-import { IRefreshTokenRepository } from '../../repositories/IRefreshTokenRepository';
-import { IUserRepository } from '../../repositories/IUserRepository';
+import { IRefreshTokenRepository } from '../../repositories/interfaces/IRefreshTokenRepository';
+import { IUserRepository } from '../../repositories/interfaces/IUserRepository';
 import { Forbidden } from '../errors/Forbidden';
 
 interface IRequest {

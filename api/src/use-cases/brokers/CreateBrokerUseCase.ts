@@ -1,6 +1,6 @@
 import { Broker } from '../../entities/Broker';
 import { User } from '../../entities/User';
-import { IBrokerRepository } from '../../repositories/IBrokerRepository';
+import { IBrokerRepository } from '../../repositories/interfaces/IBrokerRepository';
 import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 
 interface IRequest {

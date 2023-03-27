@@ -1,6 +1,6 @@
 import { sign } from 'jsonwebtoken';
 import { User } from '../entities/User';
-import { IRefreshTokenRepository } from '../repositories/IRefreshTokenRepository';
+import { IRefreshTokenRepository } from '../repositories/interfaces/IRefreshTokenRepository';
 
 export class GenerateRefreshTokenProvider {
   constructor(private repository: IRefreshTokenRepository) {}
