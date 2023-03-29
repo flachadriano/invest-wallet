@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Asset } from './Asset';
 import { Broker } from './Broker';
 import { RefreshToken } from './RefreshTokens';
+import { Wallet } from './Wallet';
 
 @Entity('users')
 export class User {
@@ -31,4 +32,7 @@ export class User {
 
   @OneToMany(() => Broker, broker => broker.user)
     brokers: Broker[];
+
+  @OneToMany(() => Wallet, wallet => wallet.user)
+    wallets: Wallet[];
 }
