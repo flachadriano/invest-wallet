@@ -6,33 +6,35 @@ import { useQuery } from '@tanstack/react-query';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import { deleteBroker, getBrokerList } from '../../services/Broker';
 import Broker from '../../entities/Broker';
 import { RoutePath } from '../../RoutePath';
+import { deleteAsset, getAssetList } from '../../services/Asset';
 
-export default function BrokerList() {
+export default function AssetList() {
   const {
     isLoading, data, error, refetch
-  } = useQuery(['brokers'], getBrokerList);
+  } = useQuery(['assets'], getAssetList);
 
   if (error) {
     return <span>Ocorreu um erro ao carregar os dados, tente novamente mais tarde.</span>;
   }
 
-  const deleteBrokerAction = (id: number) => {
-    deleteBroker(id).then(() => refetch());
+  const deleteAction = (id: number) => {
+    deleteAsset(id).then(() => refetch());
   };
 
   const renderActions = (params: GridRenderCellParams<Broker>) => (
     <Box>
-      <NavLink to={`${RoutePath.BROKERS}/${params.row.id}`}><Button><CreateIcon /></Button></NavLink>
-      <Button onClick={() => deleteBrokerAction(params.row.id)}><DeleteIcon /></Button>
+      <NavLink to={`${RoutePath.ASSETS}/${params.row.id}`}><Button><CreateIcon /></Button></NavLink>
+      <Button onClick={() => deleteAction(params.row.id)}><DeleteIcon /></Button>
     </Box>
   );
 
   const columns: GridColDef<Broker>[] = [
     { field: 'id', headerName: 'ID', width: 90 },
     { field: 'name', headerName: 'Nome' },
+    { field: 'category', headerName: 'Categoria' },
+    { field: 'subcategory', headerName: 'Subcategoria' },
     { field: 'legalName', headerName: 'Razão social' },
     { field: 'cnpj', headerName: 'CNPJ', width: 110 },
     {
@@ -48,8 +50,8 @@ export default function BrokerList() {
       flexDirection: 'column'
     }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography component="h1" variant="h5" sx={{ mb: 2 }}>Corretoras</Typography>
-        <NavLink to={`${RoutePath.BROKERS}/novo`}><Button><AddIcon /> Adicionar corretora</Button></NavLink>
+        <Typography component="h1" variant="h5" sx={{ mb: 2 }}>Ativos</Typography>
+        <NavLink to={`${RoutePath.ASSETS}/novo`}><Button><AddIcon /> Adicionar ativo</Button></NavLink>
       </Box>
 
       <DataGrid

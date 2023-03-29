@@ -17,12 +17,21 @@ import BrokerEdit from './pages/brokers/Edit';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 import BrokerNew from './pages/brokers/New';
+import AssetList from './pages/assets/List';
+import AssetEdit from './pages/assets/Edit';
+import AssetNew from './pages/assets/New';
 
 function App(): JSX.Element {
   const queryClient = new QueryClient();
 
   const protectedRoutes = [{
     path: RoutePath.HOME, render: () => <Home />,
+  }, {
+    path: RoutePath.ASSETS, render: () => <AssetList />
+  }, {
+    path: RoutePath.ASSET_EDIT, render: () => <AssetEdit />
+  }, {
+    path: RoutePath.ASSET_NEW, render: () => <AssetNew />
   }, {
     path: RoutePath.BROKERS, render: () => <BrokerList />
   }, {

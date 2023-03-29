@@ -11,6 +11,8 @@ export default function Menu() {
   const options = [{
     path: RoutePath.HOME, text: 'Página inicial'
   }, {
+    path: RoutePath.ASSETS, text: 'Ativos'
+  }, {
     path: RoutePath.BROKERS, text: 'Corretoras'
   }];
 
