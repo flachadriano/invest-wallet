@@ -4,13 +4,18 @@ import { CreateUserController } from '../controllers/users/CreateUserController'
 import { RefreshTokenUserController } from '../controllers/users/RefreshTokenUserController';
 import { RefreshTokenRepository } from '../repositories/RefreshTokenRepository';
 import { UserRepository } from '../repositories/UserRepository';
+import { WalletRepository } from '../repositories/WalletRepostory';
 import { AuthenticateUserUseCase } from '../use-cases/users/AuthenticateUserUseCase';
 import { CreateUserUseCase } from '../use-cases/users/CreateUserUseCase';
 import { RefreshTokenUserUseCase } from '../use-cases/users/RefreshTokenUserUseCase';
+import { CreateWalletUseCase } from '../use-cases/wallets/CreateWalletUseCase';
 
 const routes = Router();
 
-const createUserController = new CreateUserController(new CreateUserUseCase(new UserRepository()));
+const createUserController = new CreateUserController(
+  new CreateUserUseCase(new UserRepository()),
+  new CreateWalletUseCase(new WalletRepository())
+);
 routes.post('/users', createUserController.handle.bind(createUserController));
 
 const authenticateUserController = new AuthenticateUserController(
