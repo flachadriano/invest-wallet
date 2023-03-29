@@ -11,9 +11,11 @@ export default function Menu() {
   const options = [{
     path: RoutePath.HOME, text: 'Página inicial'
   }, {
-    path: RoutePath.ASSETS, text: 'Ativos'
+    path: RoutePath.WALLETS, text: 'Carteiras'
   }, {
     path: RoutePath.BROKERS, text: 'Corretoras'
+  }, {
+    path: RoutePath.ASSETS, text: 'Ativos'
   }];
 
   return (
