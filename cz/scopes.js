@@ -15,4 +15,8 @@ module.exports = {
         "description": "User",
         "title": "User"
     },
+    "wallet": {
+        "description": "Wallet",
+        "title": "Wallet"
+    },
 }
