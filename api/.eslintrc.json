@@ -25,6 +25,7 @@
         "no-empty-function": "off",
         "no-unused-vars": "off",
         "object-curly-newline": "off",
-        "lines-between-class-members": "off"
+        "lines-between-class-members": "off",
+        "no-empty-interface": "off"
     }
 }

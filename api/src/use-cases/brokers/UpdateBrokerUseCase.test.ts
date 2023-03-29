@@ -7,7 +7,7 @@ import { NotFound } from '../errors/NotFound';
 import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 import { CreateUserUseCase } from '../users/CreateUserUseCase';
 import { CreateBrokerUseCase } from './CreateBrokerUseCase';
-import { UpdateBrokerUseCase } from './UpdateBrokeUseCase';
+import { UpdateBrokerUseCase } from './UpdateBrokerUseCase';
 
 describe('WHEN update a Broker', () => {
   let useCase: UpdateBrokerUseCase;

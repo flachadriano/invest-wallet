@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Asset } from './Asset';
 import { Broker } from './Broker';
 import { RefreshToken } from './RefreshTokens';
 
@@ -24,6 +25,9 @@ export class User {
 
   @OneToMany(() => RefreshToken, refreshToken => refreshToken.user)
     refreshTokens: RefreshToken[];
+
+  @OneToMany(() => Asset, asset => asset.user)
+    assets: Asset[];
 
   @OneToMany(() => Broker, broker => broker.user)
     brokers: Broker[];

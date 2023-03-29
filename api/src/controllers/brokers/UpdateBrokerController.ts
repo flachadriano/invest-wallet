@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { UpdateBrokerUseCase } from '../../use-cases/brokers/UpdateBrokeUseCase';
+import { UpdateBrokerUseCase } from '../../use-cases/brokers/UpdateBrokerUseCase';
 
 export class UpdateBrokerController {
   constructor(private updateBrokerUseCase: UpdateBrokerUseCase) {}
