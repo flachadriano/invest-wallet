@@ -14,8 +14,12 @@ export class WalletRepository implements IWalletRepository {
     return this.repository.findBy({ user });
   }
 
-  get(user: User, id: number): Promise<Wallet> {
-    return this.repository.findOneBy({ user, id });
+  async get(user: User, id: number): Promise<Wallet> {
+    const wallets = await this.repository.find({
+      relations: { user: true },
+      where: { user: { id: user.id }, id }
+    });
+    return wallets[0];
   }
 
   async update(user: User, id: number, WalletData: IWalletUpdateData): Promise<Wallet> {

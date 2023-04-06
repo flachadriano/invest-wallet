@@ -1,4 +1,4 @@
-import { UserResponse } from '../../entities/UserResponse';
+import { User } from '../../entities/User';
 import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
 import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
@@ -15,7 +15,7 @@ interface IRequest {
 export interface IResponse {
   token: string;
   refreshToken?: string;
-  user: UserResponse;
+  user: User;
 }
 
 export class AuthenticateUserUseCase {
@@ -40,33 +40,17 @@ export class AuthenticateUserUseCase {
     }
 
     const token = new GenerateTokenProvider().execute(user);
+    let refreshToken: string;
 
     if (keepConnected) {
       const provider = new GenerateRefreshTokenProvider(this.refreshTokenRepository);
-      const refreshToken = provider.execute(user);
-
-      return {
-        token,
-        refreshToken,
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          login: user.login,
-          createdAt: user.createdAt
-        }
-      };
+      refreshToken = provider.execute(user);
     }
 
     return {
       token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        login: user.login,
-        createdAt: user.createdAt
-      }
+      refreshToken,
+      user
     };
   }
 }

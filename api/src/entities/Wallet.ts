@@ -6,7 +6,8 @@ export class Wallet {
   @PrimaryGeneratedColumn({ name: 'wallet_id' })
     id: number;
 
-  @ManyToOne(() => User, user => user.wallets)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  @ManyToOne((type) => User, user => user.wallets)
     user: User;
 
   @Column({ type: 'text' })

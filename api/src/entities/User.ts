@@ -21,6 +21,9 @@ export class User {
   @Column({ type: 'text' })
     password: string;
 
+  @Column({ type: 'numeric', nullable: true })
+    selectedWalletId: number;
+
   @Column({ type: 'date', default: 'now()' })
     createdAt: Date;
 

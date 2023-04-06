@@ -1,5 +1,5 @@
 import { User } from '../../entities/User';
-import { IUserRepository, IUserCreateData } from '../interfaces/IUserRepository';
+import { IUserRepository, IUserCreateData, IUserUpdateData } from '../interfaces/IUserRepository';
 
 export class UserRepositoryInMemory implements IUserRepository {
   private nextId = 1;
@@ -16,6 +16,19 @@ export class UserRepositoryInMemory implements IUserRepository {
     this.users.push(newUser);
     this.nextId += 1;
     return Promise.resolve(newUser);
+  }
+
+  update(id: number, userData: IUserUpdateData): Promise<User> {
+    const index = this.users.findIndex(b => b.id === id);
+    if (index >= 0) {
+      const user = this.users[index];
+      if (userData.selectedWalletId) {
+        user.selectedWalletId = userData.selectedWalletId;
+      }
+      this.users[index] = user;
+      return Promise.resolve(user);
+    }
+    return Promise.reject();
   }
 
   findByEmail(email: string): Promise<User> {

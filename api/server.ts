@@ -4,7 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import AppDataSource from './src/middlewares/DataSource';
 import PublicRoutes from './src/middlewares/PublicRoutes';
-import ProtectedRoutes from './src/middlewares/ProtectedRoutes';
+import AssetResources from './src/middlewares/protected-resources/AssetRessources';
+import BrokerResources from './src/middlewares/protected-resources/BrokerResources';
 import WalletResources from './src/middlewares/protected-resources/WalletResources';
 import { ensureAuthenticated } from './src/middlewares/EnsureAuthenticated';
 import { authenticateRequest } from './src/middlewares/AuthenticatedRequest';
@@ -22,8 +23,9 @@ AppDataSource.initialize().then(() => {
 
   app.use(ensureAuthenticated);
   app.use(authenticateRequest);
-  app.use(ProtectedRoutes);
+  app.use(AssetResources);
   app.use(WalletResources);
+  app.use(BrokerResources);
 
   app.use(treatErrorResponse);
 
