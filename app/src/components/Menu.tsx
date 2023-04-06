@@ -19,8 +19,8 @@ export default function Menu() {
   }];
 
   return (
-    <Box hidden={!sessionData.showMenu} sx={{
-      display: 'flex',
+    <Box sx={{
+      display: sessionData.showMenu ? 'flex' : 'none',
       flexDirection: 'column',
       p: 3,
       bgcolor: 'primary.main'

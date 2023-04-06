@@ -41,9 +41,8 @@ function AuthProvider({ children }: IAuthProvider) {
         api.defaults.headers.common = {
           Authorization: `Bearer ${storageToken}`,
         };
-
-        setLoading(false);
       }
+      setLoading(false);
     }
   }, []);
 

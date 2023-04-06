@@ -16,16 +16,21 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton color="inherit" onClick={sessionData.toggleMenu} sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
+          {sessionData.user && (
+            <IconButton color="inherit" onClick={sessionData.toggleMenu} sx={{ mr: 2 }}>
+              <MenuIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Tá investido
           </Typography>
           <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleMode} color="inherit">
             {colorMode.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-          {sessionData.token && <Button color="inherit" onClick={sessionData.signOut}>Sair</Button>}
+          {sessionData.user
+            ? <Button color="inherit" onClick={sessionData.signOut}>Sair</Button>
+            : <Button color="inherit" onClick={sessionData.signOut}>Entrar</Button>
+          }
         </Toolbar>
       </AppBar>
     </Box>
