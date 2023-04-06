@@ -45,7 +45,7 @@ describe('WHEN update a Broker', () => {
     createUserUseCase = new CreateUserUseCase(userRepository);
     user = await createUserUseCase.execute(getNewUserData());
     const repository = new BrokerRepositoryInMemory();
-    broker = await new CreateBrokerUseCase(repository).execute({ user, ...getNewBrokerData() });
+    broker = await new CreateBrokerUseCase(repository).execute(user, getNewBrokerData());
     useCase = new UpdateBrokerUseCase(repository);
   });
 

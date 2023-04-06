@@ -5,8 +5,9 @@ import { BrokerRepositoryInMemory } from '../../repositories/in-memory/BrokerRep
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
 import { NotFound } from '../errors/NotFound';
 import { CreateUserUseCase } from '../users/CreateUserUseCase';
-import { CreateBrokerUseCase } from './CreateBrokerUseCase';
 import { DeleteBrokerUseCase } from './DeleteBrokerUseCase';
+import { createBrokerFactory } from './CreateBrokerUseCase.factory';
+import { createUserFactory, getMockedUserData } from '../users/CreateUserUseCase.factory';
 
 describe('WHEN update a Broker', () => {
   let useCase: DeleteBrokerUseCase;
@@ -14,29 +15,12 @@ describe('WHEN update a Broker', () => {
   let user: User;
   let broker: Broker;
 
-  const getNewUserData = () => {
-    return {
-      name: 'Adriano Flach',
-      email: 'flachadriano@gmail.com',
-      login: 'flachadriano',
-      password: '123'
-    };
-  };
-
-  const getNewBrokerData = () => {
-    return {
-      name: 'Broker 1',
-      acronym: 'B1',
-      cnpj: 'XXXXXXXX0001XX'
-    };
-  };
-
   beforeEach(async () => {
     const userRepository = new UserRepositoryInMemory();
     createUserUseCase = new CreateUserUseCase(userRepository);
-    user = await createUserUseCase.execute(getNewUserData());
+    user = await createUserFactory(userRepository);
     const repository = new BrokerRepositoryInMemory();
-    broker = await new CreateBrokerUseCase(repository).execute({ user, ...getNewBrokerData() });
+    broker = await createBrokerFactory(repository, user);
     useCase = new DeleteBrokerUseCase(repository);
   });
 
@@ -51,7 +35,7 @@ describe('WHEN update a Broker', () => {
   });
 
   it('WITH valid id of another user THEN delete true', async () => {
-    const anotherUser = await createUserUseCase.execute({ ...getNewUserData(), email: 'teste@gmail.com', login: 'teste' });
+    const anotherUser = await createUserUseCase.execute({ ...getMockedUserData(), email: 'teste@gmail.com', login: 'teste' });
     const updatedBrokerPromise = useCase.execute(anotherUser, broker.id);
     expect(updatedBrokerPromise).rejects.toBeInstanceOf(NotFound);
   });

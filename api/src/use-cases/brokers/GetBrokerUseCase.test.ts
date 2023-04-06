@@ -14,29 +14,25 @@ describe('WHEN get a Broker', () => {
   let user: User;
   let broker: Broker;
 
-  const getNewUserData = () => {
-    return {
-      name: 'Adriano Flach',
-      email: 'flachadriano@gmail.com',
-      login: 'flachadriano',
-      password: '123'
-    };
-  };
+  const getNewUserData = () => ({
+    name: 'Adriano Flach',
+    email: 'flachadriano@gmail.com',
+    login: 'flachadriano',
+    password: '123'
+  });
 
-  const getNewBrokerData = () => {
-    return {
-      name: 'Broker 1',
-      acronym: 'B1',
-      cnpj: 'XXXXXXXX0001XX'
-    };
-  };
+  const getNewBrokerData = () => ({
+    name: 'Broker 1',
+    legalName: 'Broker 1 DTVM',
+    cnpj: 'XXXXXXXX0001XX'
+  });
 
   beforeEach(async () => {
     const userRepository = new UserRepositoryInMemory();
     createUserUseCase = new CreateUserUseCase(userRepository);
     user = await createUserUseCase.execute(getNewUserData());
     const repository = new BrokerRepositoryInMemory();
-    broker = await new CreateBrokerUseCase(repository).execute({ user, ...getNewBrokerData() });
+    broker = await new CreateBrokerUseCase(repository).execute(user, getNewBrokerData());
     useCase = new GetBrokerUseCase(repository);
   });
 

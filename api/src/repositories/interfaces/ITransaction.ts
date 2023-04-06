@@ -18,4 +18,6 @@ export interface ITransactionCreateData {
 export interface ITransactionRepository {
 
   create(transactionData: ITransactionCreateData): Promise<Transaction>;
+
+  all(wallet: Wallet): Promise<Transaction[]>;
 }

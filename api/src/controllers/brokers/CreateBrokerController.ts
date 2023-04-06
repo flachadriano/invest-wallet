@@ -7,8 +7,8 @@ export class CreateBrokerController {
   async handle(request: Request, response: Response) {
     const { name, legalName, cnpj } = request.body;
 
-    const broker = await this.createBrokerUseCase.execute({
-      user: request.currentUser, name, legalName, cnpj
+    const broker = await this.createBrokerUseCase.execute(request.currentUser, {
+      name, legalName, cnpj
     });
 
     response.json({

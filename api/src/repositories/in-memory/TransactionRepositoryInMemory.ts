@@ -1,5 +1,6 @@
 import { ITransactionCreateData, ITransactionRepository } from '../interfaces/ITransaction';
 import { Transaction } from '../../entities/Transaction';
+import { Wallet } from '../../entities/Wallet';
 
 export class TransactionRepositoryInMemory implements ITransactionRepository {
   private nextId = 1;
@@ -20,5 +21,9 @@ export class TransactionRepositoryInMemory implements ITransactionRepository {
     this.nextId += 1;
     this.transactions.push(record);
     return Promise.resolve(record);
+  }
+
+  all(wallet: Wallet): Promise<Transaction[]> {
+    return Promise.resolve(this.transactions.filter(t => t.wallet.id === wallet.id));
   }
 }
