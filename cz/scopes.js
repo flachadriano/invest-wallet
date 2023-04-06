@@ -15,6 +15,10 @@ module.exports = {
         "description": "User",
         "title": "User"
     },
+    "transaction": {
+        "description": "Transaction",
+        "title": "Transaction"
+    },
     "wallet": {
         "description": "Wallet",
         "title": "Wallet"
