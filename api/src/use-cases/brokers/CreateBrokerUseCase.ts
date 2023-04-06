@@ -4,7 +4,6 @@ import { IBrokerRepository } from '../../repositories/interfaces/IBrokerReposito
 import { UnprocessableEntity } from '../errors/UnprocessableEntity';
 
 interface IRequest {
-  user: User;
   name: string;
   legalName: string;
   cnpj: string;
@@ -13,7 +12,7 @@ interface IRequest {
 export class CreateBrokerUseCase {
   constructor(private repository: IBrokerRepository) {}
 
-  async execute({ user, name, legalName, cnpj }: IRequest): Promise<Broker> {
+  async execute(user: User, { name, legalName, cnpj }: IRequest): Promise<Broker> {
     if (!name) {
       throw new UnprocessableEntity('Nome');
     }

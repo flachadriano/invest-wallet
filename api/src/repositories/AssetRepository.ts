@@ -11,16 +11,22 @@ export class AssetRepository implements IAssetRepository {
   }
 
   all(user: User): Promise<Asset[]> {
-    return this.repository.findBy({ user });
+    return this.repository.find({
+      relations: { user: true },
+      where: { user: { id: user.id } }
+    });
   }
 
   get(user: User, id: number): Promise<Asset> {
-    return this.repository.findOneBy({ user, id });
+    return this.repository.findOne({
+      relations: { user: true },
+      where: { user: { id: user.id }, id }
+    });
   }
 
   async update(user: User, id: number, assetData: IAssetUpdateData): Promise<Asset> {
     await this.repository.update({ user, id }, assetData);
-    return this.repository.findOneBy({ user, id });
+    return this.get(user, id);
   }
 
   async delete(user: User, id: number): Promise<boolean> {

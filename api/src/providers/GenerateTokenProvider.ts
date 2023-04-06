@@ -8,6 +8,7 @@ export class GenerateTokenProvider {
       name: user.name,
       email: user.email,
       login: user.login,
+      selectedWalletId: user.selectedWalletId,
       createAt: user.createdAt
     }, process.env.TOKEN_PRIVATE_KEY, {
       subject: user.login,

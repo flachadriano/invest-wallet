@@ -33,21 +33,21 @@ describe('WHEN create a broker', () => {
   it('WITH valid data THEN create a broker', async () => {
     const userRepository = new UserRepositoryInMemory();
     const user = await new CreateUserUseCase(userRepository).execute(getNewUserData());
-    const newBroker = await useCase.execute({ user, ...getNewBrokerData() });
+    const newBroker = await useCase.execute(user, { ...getNewBrokerData() });
     expect(newBroker).instanceOf(Broker);
   });
 
   it('WITH no legal name THEN create a broker', async () => {
     const userRepository = new UserRepositoryInMemory();
     const user = await new CreateUserUseCase(userRepository).execute(getNewUserData());
-    const newBroker = await useCase.execute({ user, ...getNewBrokerData(), legalName: '' });
+    const newBroker = await useCase.execute(user, { ...getNewBrokerData(), legalName: '' });
     expect(newBroker).instanceOf(Broker);
   });
 
   it('WITH no name THEN should raise an error', async () => {
     const userRepository = new UserRepositoryInMemory();
     const user = await new CreateUserUseCase(userRepository).execute(getNewUserData());
-    const newBrokerPromise = useCase.execute({ user, ...getNewBrokerData(), name: '' });
+    const newBrokerPromise = useCase.execute(user, { ...getNewBrokerData(), name: '' });
     expect(newBrokerPromise).rejects.toBeInstanceOf(UnprocessableEntity);
   });
 
@@ -55,14 +55,14 @@ describe('WHEN create a broker', () => {
     it('blank THEN create a broker', async () => {
       const userRepository = new UserRepositoryInMemory();
       const user = await new CreateUserUseCase(userRepository).execute(getNewUserData());
-      const newBroker = await useCase.execute({ user, ...getNewBrokerData(), cnpj: '' });
+      const newBroker = await useCase.execute(user, { ...getNewBrokerData(), cnpj: '' });
       expect(newBroker).instanceOf(Broker);
     });
 
     it('invalid THEN should raise an error', async () => {
       const userRepository = new UserRepositoryInMemory();
       const user = await new CreateUserUseCase(userRepository).execute(getNewUserData());
-      const newBrokerPromise = useCase.execute({ user, ...getNewBrokerData(), cnpj: 'XXXXXXXX0001-XX' });
+      const newBrokerPromise = useCase.execute(user, { ...getNewBrokerData(), cnpj: 'XXXXXXXX0001-XX' });
       expect(newBrokerPromise).rejects.toBeInstanceOf(UnprocessableEntity);
     });
   });

@@ -12,22 +12,18 @@ describe('WHEN list a Broker', () => {
   let brokerUseCase: CreateBrokerUseCase;
   let user: User;
 
-  const getNewUserData = () => {
-    return {
-      name: 'Adriano Flach',
-      email: 'flachadriano@gmail.com',
-      login: 'flachadriano',
-      password: '123'
-    };
-  };
+  const getNewUserData = () => ({
+    name: 'Adriano Flach',
+    email: 'flachadriano@gmail.com',
+    login: 'flachadriano',
+    password: '123'
+  });
 
-  const getNewBrokerData = () => {
-    return {
-      name: 'Broker 1',
-      acronym: 'B1',
-      cnpj: 'XXXXXXXX0001XX'
-    };
-  };
+  const getNewBrokerData = () => ({
+    name: 'Broker 1',
+    legalName: 'Broker 1 DTVM',
+    cnpj: 'XXXXXXXX0001XX'
+  });
 
   beforeEach(async () => {
     const userRepository = new UserRepositoryInMemory();
@@ -35,19 +31,19 @@ describe('WHEN list a Broker', () => {
     user = await userUseCase.execute(getNewUserData());
     const brokerRepository = new BrokerRepositoryInMemory();
     brokerUseCase = new CreateBrokerUseCase(brokerRepository);
-    await brokerUseCase.execute({ user, ...getNewBrokerData() });
+    await brokerUseCase.execute(user, getNewBrokerData());
     useCase = new ListBrokerUseCase(brokerRepository);
   });
 
   it('WITH a broker stored earlier THEN get the broker', async () => {
-    const brokers = await useCase.execute({ user });
+    const brokers = await useCase.execute(user);
     expect(brokers.length).toBe(1);
   });
 
   it('WITH two brokers stored earlier from different users THEN get only the user brokers', async () => {
     const user2 = await userUseCase.execute({ ...getNewUserData(), email: 'flachadriano2@gmail.com', login: 'flachadriano2' });
-    brokerUseCase.execute({ user: user2, ...getNewBrokerData() });
-    const brokers = await useCase.execute({ user });
+    brokerUseCase.execute(user2, getNewBrokerData());
+    const brokers = await useCase.execute(user);
     expect(brokers.length).toBe(1);
   });
 });

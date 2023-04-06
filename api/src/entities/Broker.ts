@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './User';
+import { Transaction } from './Transaction';
 
 @Entity('brokers')
 export class Broker {
@@ -17,4 +18,7 @@ export class Broker {
 
   @Column({ type: 'text', nullable: true })
     cnpj: string;
+
+  @OneToMany(() => Transaction, transaction => transaction.broker)
+    transactions: Transaction[];
 }

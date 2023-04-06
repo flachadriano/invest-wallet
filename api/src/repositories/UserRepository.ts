@@ -6,8 +6,7 @@ export class UserRepository implements IUserRepository {
   private repository = AppDataSource.getRepository(User);
 
   create(user: User): Promise<User> {
-    const newUser = this.repository.create(user);
-    return this.repository.save(newUser);
+    return this.repository.save(user);
   }
 
   async update(id: number, user: IUserUpdateData): Promise<User> {

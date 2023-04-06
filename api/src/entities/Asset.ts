@@ -1,5 +1,6 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { User } from './User';
+import { Transaction } from './Transaction';
 
 @Entity('assets')
 export class Asset {
@@ -23,4 +24,7 @@ export class Asset {
 
   @Column({ type: 'text', nullable: true })
     cnpj: string;
+
+  @OneToMany(() => Transaction, transaction => transaction.asset)
+    transactions: Transaction[];
 }
