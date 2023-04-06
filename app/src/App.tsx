@@ -18,9 +18,6 @@ import BrokerNew from './pages/brokers/New';
 import AssetList from './pages/assets/List';
 import AssetEdit from './pages/assets/Edit';
 import AssetNew from './pages/assets/New';
-import WalletList from './pages/wallets/List';
-import WalletEdit from './pages/wallets/Edit';
-import WalletNew from './pages/wallets/New';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
@@ -41,12 +38,6 @@ function App(): JSX.Element {
     path: RoutePath.BROKER_EDIT, render: () => <BrokerEdit />
   }, {
     path: RoutePath.BROKER_NEW, render: () => <BrokerNew />
-  }, {
-    path: RoutePath.WALLETS, render: () => <WalletList />
-  }, {
-    path: RoutePath.WALLET_EDIT, render: () => <WalletEdit />
-  }, {
-    path: RoutePath.WALLET_NEW, render: () => <WalletNew />
   }];
 
   return (
