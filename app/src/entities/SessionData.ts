@@ -6,6 +6,6 @@ export default interface SessionData {
   user?: User;
   showMenu: boolean;
   toggleMenu: () => void;
-  signIn: (token: string) => void;
+  signIn: (token: string, user: User) => void;
   signOut: () => void;
 }

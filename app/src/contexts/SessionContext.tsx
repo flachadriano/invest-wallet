@@ -21,6 +21,7 @@ function AuthProvider({ children }: IAuthProvider) {
     setToken(newToken);
 
     const jwtUser = jwtDecode<User>(newToken);
+    console.log('jwtUser', jwtUser);
     setUser(jwtUser);
   };
 

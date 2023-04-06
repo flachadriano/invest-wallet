@@ -3,5 +3,6 @@ export default interface User {
   name: string;
   email: string;
   login: string;
+  selectedWalletId: number;
   createdAt: string;
 }

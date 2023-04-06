@@ -1,3 +1,4 @@
+import User from '../entities/User';
 import api from './Api';
 
 interface AuthenticateRequest {
@@ -8,13 +9,7 @@ interface AuthenticateRequest {
 
 export interface AuthenticateResponse {
   token: string;
-  user: {
-    id: number,
-    name: string,
-    email: string,
-    login: string,
-    createdAt: string,
-  }
+  user: User;
 }
 
 export async function authenticate(params: AuthenticateRequest): Promise<AuthenticateResponse> {

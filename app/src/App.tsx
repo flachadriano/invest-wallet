@@ -10,35 +10,14 @@ import Header from './components/Header';
 import RequireAuth from './components/RequireAuth';
 import Login from './pages/users/Login';
 import SignUp from './pages/users/SignUp';
-import Home from './pages/Home';
 import Menu from './components/Menu';
-import BrokerList from './pages/brokers/List';
-import BrokerEdit from './pages/brokers/Edit';
-import BrokerNew from './pages/brokers/New';
-import AssetList from './pages/assets/List';
-import AssetEdit from './pages/assets/Edit';
-import AssetNew from './pages/assets/New';
+import { getRoutes } from './Routes';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles.css';
 
 function App(): JSX.Element {
   const queryClient = new QueryClient();
-
-  const protectedRoutes = [{
-    path: RoutePath.HOME, render: () => <Home />,
-  }, {
-    path: RoutePath.ASSETS, render: () => <AssetList />
-  }, {
-    path: RoutePath.ASSET_EDIT, render: () => <AssetEdit />
-  }, {
-    path: RoutePath.ASSET_NEW, render: () => <AssetNew />
-  }, {
-    path: RoutePath.BROKERS, render: () => <BrokerList />
-  }, {
-    path: RoutePath.BROKER_EDIT, render: () => <BrokerEdit />
-  }, {
-    path: RoutePath.BROKER_NEW, render: () => <BrokerNew />
-  }];
+  const protectedRoutes = getRoutes();
 
   return (
     <QueryClientProvider client={queryClient}>

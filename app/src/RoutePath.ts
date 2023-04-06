@@ -8,4 +8,5 @@ export enum RoutePath {
   BROKERS = '/corretoras',
   BROKER_EDIT = '/corretoras/:id',
   BROKER_NEW = '/corretoras/novo',
+  TRANSACTION_NEW = '/transacoes/novo',
 }
