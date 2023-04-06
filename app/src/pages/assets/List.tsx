@@ -13,7 +13,7 @@ import { deleteAsset, getAssetList } from '../../services/Asset';
 export default function AssetList() {
   const {
     isLoading, data, error, refetch
-  } = useQuery(['assets'], getAssetList);
+  } = useQuery(['assets'], getAssetList, { refetchOnWindowFocus: false });
 
   if (error) {
     return <span>Ocorreu um erro ao carregar os dados, tente novamente mais tarde.</span>;

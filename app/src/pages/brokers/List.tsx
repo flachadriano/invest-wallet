@@ -13,7 +13,7 @@ import { RoutePath } from '../../RoutePath';
 export default function BrokerList() {
   const {
     isLoading, data, error, refetch
-  } = useQuery(['brokers'], getBrokerList);
+  } = useQuery(['brokers'], getBrokerList, { refetchOnWindowFocus: false });
 
   if (error) {
     return <span>Ocorreu um erro ao carregar os dados, tente novamente mais tarde.</span>;

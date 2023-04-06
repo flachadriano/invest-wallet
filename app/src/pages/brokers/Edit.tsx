@@ -12,7 +12,11 @@ export default function BrokerEdit() {
   const params = useParams();
   const id = parseInt(params.id || '', 10);
 
-  const { data: broker, isLoading } = useQuery(['broker-get'], () => getBroker(id));
+  const { data: broker, isLoading } = useQuery(
+    ['broker-get'],
+    () => getBroker(id),
+    { refetchOnWindowFocus: false }
+  );
 
   if (isLoading) {
     return <span>Loading</span>;

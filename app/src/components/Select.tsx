@@ -18,7 +18,7 @@ export default function Select({
 }: ISelect) {
   const [value, setValue] = React.useState('');
 
-  const { data } = useQuery([name], fetchData);
+  const { data } = useQuery([name], fetchData, { refetchOnWindowFocus: false });
 
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string);

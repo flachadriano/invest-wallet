@@ -8,13 +8,12 @@ import { RoutePath } from '../RoutePath';
 export default function Menu() {
   const sessionData = useContext(SessionContext);
 
-  const options = [{
-    path: RoutePath.HOME, text: 'Página inicial'
-  }, {
-    path: RoutePath.BROKERS, text: 'Corretoras'
-  }, {
-    path: RoutePath.ASSETS, text: 'Ativos'
-  }];
+  const options: { path: string, text: string }[] = [
+    { path: RoutePath.HOME, text: 'Página inicial' },
+    { path: RoutePath.BROKERS, text: 'Corretoras' },
+    { path: RoutePath.ASSETS, text: 'Ativos' },
+    { path: RoutePath.TRANSACTIONS, text: 'Listar transações' }
+  ];
 
   return (
     <Box sx={{

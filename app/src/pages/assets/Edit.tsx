@@ -13,7 +13,11 @@ export default function AssetEdit() {
   const id = parseInt(params.id || '', 10);
   const [isSaving, setIsSaving] = useState(false);
 
-  const { data: broker, isLoading } = useQuery(['asset-get'], () => getAsset(id));
+  const { data: broker, isLoading } = useQuery(
+    ['asset-get'],
+    () => getAsset(id),
+    { refetchOnWindowFocus: false }
+  );
 
   if (isLoading) {
     return <span>Loading</span>;
