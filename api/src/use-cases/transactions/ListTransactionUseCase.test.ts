@@ -38,8 +38,8 @@ describe('WHEN list transactions', () => {
     wallet = await createWalletFactory(walletRepo, user);
     const broker = await createBrokerFactory(brokerRepo, user);
     const asset = await createAssetFactory(assetRepo, user);
-    new CreateTransactionUseCase(transactionRepo, walletRepo, brokerRepo, assetRepo)
-      .execute(user, getNewTransactionData(wallet, broker, asset));
+    new CreateTransactionUseCase(transactionRepo, brokerRepo, assetRepo)
+      .execute(user, wallet, getNewTransactionData(broker, asset));
   });
 
   test('WITH one transaction on database THEN get the transaction', async () => {
@@ -52,8 +52,8 @@ describe('WHEN list transactions', () => {
     const anotherWallet = await createWalletFactory(walletRepo, anotherUser);
     const anotherBroker = await createBrokerFactory(brokerRepo, anotherUser);
     const anotherAsset = await createAssetFactory(assetRepo, anotherUser);
-    await new CreateTransactionUseCase(transactionRepo, walletRepo, brokerRepo, assetRepo)
-      .execute(anotherUser, getNewTransactionData(anotherWallet, anotherBroker, anotherAsset));
+    await new CreateTransactionUseCase(transactionRepo, brokerRepo, assetRepo)
+      .execute(anotherUser, anotherWallet, getNewTransactionData(anotherBroker, anotherAsset));
     const transactions = await useCase.execute(anotherWallet);
     expect(transactions.length).toBe(1);
   });

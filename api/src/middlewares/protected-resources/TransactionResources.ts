@@ -14,12 +14,12 @@ const routes = Router();
 const createController = new CreateTransactionController(
   new CreateTransactionUseCase(
     new TransactionRepository(),
-    new WalletRepository(),
     new BrokerRepository(),
     new AssetRepository()
-  )
+  ),
+  new GetWalletUseCase(new WalletRepository())
 );
-routes.post('/transactions', createController.handle.bind(createController));
+routes.post('/wallets/:walletId/transactions', createController.handle.bind(createController));
 
 const listController = new ListTransactionController(
   new ListTransactionUseCase(new TransactionRepository()),

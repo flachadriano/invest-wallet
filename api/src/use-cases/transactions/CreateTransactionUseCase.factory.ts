@@ -1,9 +1,7 @@
 import { Asset } from '../../entities/Asset';
 import { Broker } from '../../entities/Broker';
-import { Wallet } from '../../entities/Wallet';
 
-export const getNewTransactionData = (wallet: Wallet, broker: Broker, asset: Asset) => ({
-  walletId: wallet.id,
+export const getNewTransactionData = (broker: Broker, asset: Asset) => ({
   brokerId: broker.id,
   assetId: asset.id,
   operation: 1,

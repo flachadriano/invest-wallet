@@ -3,8 +3,7 @@ import { Broker } from '../../entities/Broker';
 import { Transaction } from '../../entities/Transaction';
 import { Wallet } from '../../entities/Wallet';
 
-export interface ITransactionCreateData {
-  wallet: Wallet;
+export interface ITransactionData {
   broker: Broker;
   asset: Asset;
   operation: number;
@@ -17,7 +16,11 @@ export interface ITransactionCreateData {
 
 export interface ITransactionRepository {
 
-  create(transactionData: ITransactionCreateData): Promise<Transaction>;
-
   all(wallet: Wallet): Promise<Transaction[]>;
+
+  create(wallet: Wallet, data: ITransactionData): Promise<Transaction>;
+
+  get(wallet: Wallet, id: number): Promise<Transaction>;
+
+  update(wallet: Wallet, id: number, data: ITransactionData): Promise<Transaction>;
 }
