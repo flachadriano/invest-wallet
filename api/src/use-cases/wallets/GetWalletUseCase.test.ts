@@ -24,17 +24,15 @@ describe('WHEN get an wallet', () => {
   });
 
   it('WITH valid id THEN get the Wallet', async () => {
-    const loadedWallet = await useCase.execute(user, wallet.id);
-    expect(loadedWallet).toBeInstanceOf(Wallet);
+    expect(useCase.execute(user, wallet.id)).resolves.toBeInstanceOf(Wallet);
   });
 
   it('WITH invalid id THEN should raises an error', () => {
-    expect(() => useCase.execute(user, 999999)).rejects.toBeInstanceOf(NotFound);
+    expect(useCase.execute(user, 999999)).rejects.toBeInstanceOf(NotFound);
   });
 
   it('WITH valid id of another user THEN raises an error', async () => {
     const anotherUser = await createUserFactoryAnother(userRepo);
-    const deletedWalletPromise = useCase.execute(anotherUser, wallet.id);
-    expect(deletedWalletPromise).rejects.toBeInstanceOf(NotFound);
+    expect(useCase.execute(anotherUser, wallet.id)).rejects.toBeInstanceOf(NotFound);
   });
 });

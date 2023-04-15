@@ -32,7 +32,7 @@ export class TransactionRepositoryInMemory implements ITransactionRepository {
     if (transaction) {
       return Promise.resolve(transaction);
     }
-    return Promise.reject();
+    return Promise.resolve(null);
   }
 
   update(wallet: Wallet, id: number, data: ITransactionData): Promise<Transaction> {

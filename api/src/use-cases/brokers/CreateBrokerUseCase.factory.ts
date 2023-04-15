@@ -5,7 +5,7 @@ import { IBrokerRepository } from '../../repositories/interfaces/IBrokerReposito
 import { createUserFactory } from '../users/CreateUserUseCase.factory';
 import { CreateBrokerUseCase } from './CreateBrokerUseCase';
 
-const getNewBrokerData = async () => ({
+const getNewBrokerData = () => ({
   name: 'Broker 1',
   legalName: 'Broker B1 DTVM',
   cnpj: 'XXXXXXXX0001XX'
@@ -22,7 +22,7 @@ export async function createBrokerFactory(
   user?: User
 ): Promise<Broker> {
   const useCase = new CreateBrokerUseCase(repository || new BrokerRepositoryInMemory());
-  return useCase.execute(user || await createUserFactory(), await getNewBrokerData());
+  return useCase.execute(user || await createUserFactory(), getNewBrokerData());
 }
 
 export async function createBrokerFactoryAnother(
