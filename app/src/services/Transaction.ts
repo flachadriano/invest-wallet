@@ -13,12 +13,17 @@ interface Payload {
   comment: string;
 }
 
+export async function getTransactionList(walletId: number): Promise<Transaction[]> {
+  const { data } = await api.get(`/wallets/${walletId}/transactions`);
+  return data;
+}
+
 export async function postTransaction(payload: Payload): Promise<Transaction> {
   const { data } = await api.post('/transactions', payload);
   return data;
 }
 
-export async function getTransactionList(walletId: number): Promise<Transaction[]> {
-  const { data } = await api.get(`/wallets/${walletId}/transactions`);
+export async function getTransaction(walletId: number, id: number): Promise<Transaction> {
+  const { data } = await api.get(`/wallets/${walletId}/transactions/${id}`);
   return data;
 }

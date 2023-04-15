@@ -9,6 +9,7 @@ import BrokerEdit from './pages/brokers/Edit';
 import BrokerNew from './pages/brokers/New';
 import TransactionNew from './pages/transactions/New';
 import TransactionList from './pages/transactions/List';
+import TransactionEdit from './pages/transactions/Edit';
 
 export function getRoutes(): { path: string, render: () => JSX.Element }[] {
   return [
@@ -20,6 +21,7 @@ export function getRoutes(): { path: string, render: () => JSX.Element }[] {
     { path: RoutePath.BROKER_EDIT, render: () => <BrokerEdit /> },
     { path: RoutePath.BROKER_NEW, render: () => <BrokerNew /> },
     { path: RoutePath.TRANSACTIONS, render: () => <TransactionList /> },
-    { path: RoutePath.TRANSACTION_NEW, render: () => <TransactionNew /> }
+    { path: RoutePath.TRANSACTION_NEW, render: () => <TransactionNew /> },
+    { path: RoutePath.TRANSACTION_EDIT, render: () => <TransactionEdit /> },
   ];
 }

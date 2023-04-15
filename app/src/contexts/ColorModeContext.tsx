@@ -2,7 +2,7 @@ import { createTheme, ThemeProvider } from '@mui/material';
 import React, { useState } from 'react';
 
 interface IColorModeContext {
-  mode: string;
+  mode: 'light' | 'dark';
   toggleMode: () => void;
 }
 

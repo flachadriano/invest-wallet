@@ -8,15 +8,16 @@ import { useQuery } from '@tanstack/react-query';
 interface ISelect {
   name: string;
   label: string;
+  defaultValue?: string;
   fetchData: () => Promise<any[]>;
   fieldKey: string;
   fieldValue: string;
 }
 
 export default function Select({
-  name, label, fieldKey, fieldValue, fetchData
+  name, label, defaultValue, fieldKey, fieldValue, fetchData
 }: ISelect) {
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(defaultValue);
 
   const { data } = useQuery([name], fetchData, { refetchOnWindowFocus: false });
 

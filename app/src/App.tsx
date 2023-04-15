@@ -24,7 +24,7 @@ function App(): JSX.Element {
       <ColorProvider>
         <AuthProvider>
           <Box sx={{
-            height: '100vh',
+            height: '90vh',
             width: '100%',
             bgcolor: 'background.default',
             color: 'text.primary',
