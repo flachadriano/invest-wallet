@@ -9,7 +9,7 @@ import { getAssetList } from '../../services/Asset';
 import Select from '../../components/Select';
 import { getBrokerList } from '../../services/Broker';
 import { getOperationList } from '../../services/Operation';
-import { getTransaction, postTransaction } from '../../services/Transaction';
+import { getTransaction, putTransaction } from '../../services/Transaction';
 import { SessionContext } from '../../contexts/SessionContext';
 
 export default function TransactionEdit() {
@@ -35,8 +35,7 @@ export default function TransactionEdit() {
 
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
-    postTransaction({
-      walletId: sessionData.user?.selectedWalletId || 0,
+    putTransaction(sessionData.user?.selectedWalletId || 0, id, {
       brokerId: data.broker_id.toString(),
       assetId: data.asset_id.toString(),
       operation: data.operation.toString(),
