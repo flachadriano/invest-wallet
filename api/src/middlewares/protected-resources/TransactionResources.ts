@@ -10,6 +10,8 @@ import { ListTransactionUseCase } from '../../use-cases/transactions/ListTransac
 import { GetWalletUseCase } from '../../use-cases/wallets/GetWalletUseCase';
 import { GetTransactionController } from '../../controllers/transactions/GetTransactionController';
 import { GetTransactionUseCase } from '../../use-cases/transactions/GetTransactionUseCase';
+import { UpdateTransactionController } from '../../controllers/transactions/UpdateTransactionController';
+import { UpdateTransactionUseCase } from '../../use-cases/transactions/UpdateTransactionUseCase';
 
 const routes = Router();
 
@@ -34,5 +36,15 @@ const getController = new GetTransactionController(
   new GetWalletUseCase(new WalletRepository())
 );
 routes.get('/wallets/:walletId/transactions/:id', getController.handle.bind(getController));
+
+const updateController = new UpdateTransactionController(
+  new UpdateTransactionUseCase(
+    new TransactionRepository(),
+    new BrokerRepository(),
+    new AssetRepository()
+  ),
+  new GetWalletUseCase(new WalletRepository())
+);
+routes.put('/wallets/:walletId/transactions/:id', updateController.handle.bind(updateController));
 
 export default routes;
