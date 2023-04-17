@@ -11,14 +11,12 @@ describe('WHEN try to access a protected endpoint', () => {
   let repository: IUserRepository;
   let useCase: EnsureAuthenticateUserUseCase;
 
-  const getNewUserData = () => {
-    return {
-      name: 'Adriano Flach',
-      email: 'flachadriano@gmail.com',
-      login: 'flachadriano',
-      password: '123'
-    };
-  };
+  const getNewUserData = () => ({
+    name: 'Adriano Flach',
+    email: 'flachadriano@gmail.com',
+    login: 'flachadriano',
+    password: '123'
+  });
 
   const createUser = (repo: IUserRepository) => {
     new CreateUserUseCase(repo).execute(getNewUserData());
@@ -39,19 +37,14 @@ describe('WHEN try to access a protected endpoint', () => {
       loginOrEmail: getNewUserData().email,
       password: getNewUserData().password
     });
-    const authenticated = useCase.execute({ token: `Bearer ${token}` });
-    expect(authenticated).toBe(true);
+    expect(useCase.execute({ token: `Bearer ${token}` })).toBe(true);
   });
 
   it('WITH no token THEN raise unauthorized exception', () => {
-    expect(() => {
-      useCase.execute({ token: undefined });
-    }).throw(Unauthorized);
+    expect(() => useCase.execute({ token: undefined })).throw(Unauthorized);
   });
 
   it('WITH an invalid token THEN raise unauthorized exception', () => {
-    expect(() => {
-      useCase.execute({ token: 'Bearer mocked-token-info' });
-    }).throw(Unauthorized);
+    expect(() => useCase.execute({ token: 'Bearer mocked-token-info' })).throw(Unauthorized);
   });
 });

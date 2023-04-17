@@ -26,7 +26,7 @@ const authenticateUserController = new AuthenticateUserController(
 routes.post('/users/authenticate', authenticateUserController.handle.bind(authenticateUserController));
 
 const refreshTokenUserController = new RefreshTokenUserController(
-  new RefreshTokenUserUseCase(new RefreshTokenRepository())
+  new RefreshTokenUserUseCase(new UserRepository())
 );
 routes.post('/users/refresh-token', refreshTokenUserController.handle.bind(refreshTokenUserController));
 

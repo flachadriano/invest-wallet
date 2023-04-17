@@ -68,24 +68,24 @@ describe('WHEN authenticate and user', () => {
         password: getNewUserData().password,
         keepConnected: true
       });
-      expect(token.refreshToken).not.toBeUndefined();
+      expect(token.refreshToken).toBeDefined();
     });
 
-    it('WITH the value false THEN it should not return a refresh token info', async () => {
+    it('WITH the value false THEN it should return a refresh token info', async () => {
       const token = await useCase.execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password,
         keepConnected: false
       });
-      expect(token.refreshToken).toBeUndefined();
+      expect(token.refreshToken).toBeDefined();
     });
 
-    it('WITH no value THEN it should not return a refresh token info', async () => {
+    it('WITH no value THEN it should return a refresh token info', async () => {
       const token = await useCase.execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password
       });
-      expect(token.refreshToken).toBeUndefined();
+      expect(token.refreshToken).toBeDefined();
     });
   });
 });

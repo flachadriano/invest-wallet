@@ -1,6 +1,7 @@
 import { User } from '../../entities/User';
 import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
 import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
+import { GenerateTemporaryRefreshTokenProvider } from '../../providers/GenerateTemporaryRefreshTokenProvider';
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
 import { IRefreshTokenRepository } from '../../repositories/interfaces/IRefreshTokenRepository';
 import { IUserRepository } from '../../repositories/interfaces/IUserRepository';
@@ -44,6 +45,9 @@ export class AuthenticateUserUseCase {
 
     if (keepConnected) {
       const provider = new GenerateRefreshTokenProvider(this.refreshTokenRepository);
+      refreshToken = provider.execute(user);
+    } else {
+      const provider = new GenerateTemporaryRefreshTokenProvider();
       refreshToken = provider.execute(user);
     }
 

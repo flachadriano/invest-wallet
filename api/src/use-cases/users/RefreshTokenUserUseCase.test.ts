@@ -1,53 +1,42 @@
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { RefreshTokenRepositoryInMemory } from '../../repositories/in-memory/RefreshTokenRepositoryInMemory';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
-import { IRefreshTokenRepository } from '../../repositories/interfaces/IRefreshTokenRepository';
 import { Unauthorized } from '../errors/Unauthorized';
 import { AuthenticateUserUseCase, IResponse } from './AuthenticateUserUseCase';
-import { CreateUserUseCase } from './CreateUserUseCase';
 import { RefreshTokenUserUseCase } from './RefreshTokenUserUseCase';
+import { createUserFactory } from './CreateUserUseCase.factory';
 
 describe('WHEN generate a new token', () => {
-  let refreshTokenRepository: IRefreshTokenRepository;
   let loggedTokens: IResponse;
+  let useCase: RefreshTokenUserUseCase;
 
-  const getNewUserData = () => {
-    return {
-      name: 'Adriano Flach',
-      email: 'flachadriano@gmail.com',
-      login: 'flachadriano',
-      password: '123'
-    };
-  };
-
-  it('WITH a valid refresh token THEN create a refresh token', async () => {
-    const userRepository = new UserRepositoryInMemory();
-    await new CreateUserUseCase(userRepository).execute(getNewUserData());
-    refreshTokenRepository = new RefreshTokenRepositoryInMemory();
-    loggedTokens = await new AuthenticateUserUseCase(userRepository, refreshTokenRepository)
-      .execute({
-        loginOrEmail: getNewUserData().login,
-        password: getNewUserData().password,
-        keepConnected: true
-      });
-    const newToken = await new RefreshTokenUserUseCase(refreshTokenRepository)
-      .execute({ refreshToken: loggedTokens.refreshToken });
-    expect(newToken).toBeInstanceOf(Object);
+  const getNewUserData = () => ({
+    name: 'Adriano Flach',
+    email: 'flachadriano@gmail.com',
+    login: 'flachadriano',
+    password: '123'
   });
 
-  it('WITH a invalid refresh token THEN throw unauthorized error', async () => {
-    const userRepository = new UserRepositoryInMemory();
-    await new CreateUserUseCase(userRepository).execute(getNewUserData());
-    refreshTokenRepository = new RefreshTokenRepositoryInMemory();
-    loggedTokens = await new AuthenticateUserUseCase(userRepository, refreshTokenRepository)
+  beforeEach(async () => {
+    const userRepo = new UserRepositoryInMemory();
+    await createUserFactory(userRepo);
+    const refreshTokenRepo = new RefreshTokenRepositoryInMemory();
+    useCase = new RefreshTokenUserUseCase(userRepo);
+    loggedTokens = await new AuthenticateUserUseCase(userRepo, refreshTokenRepo)
       .execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password,
         keepConnected: true
       });
-    expect(() => {
-      return new RefreshTokenUserUseCase(refreshTokenRepository)
-        .execute({ refreshToken: 'fake-refresh-token' });
-    }).rejects.toThrow(Unauthorized);
+  });
+
+  it('WITH a valid refresh token THEN create a refresh token', () => {
+    expect(useCase.execute({ refreshToken: loggedTokens.refreshToken }))
+      .resolves.toBeInstanceOf(Object);
+  });
+
+  it('WITH a invalid refresh token THEN throw unauthorized error', () => {
+    expect(useCase.execute({ refreshToken: 'fake-refresh-token' }))
+      .rejects.toThrow(Unauthorized);
   });
 });
