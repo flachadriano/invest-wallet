@@ -12,6 +12,8 @@ import { GetTransactionController } from '../../controllers/transactions/GetTran
 import { GetTransactionUseCase } from '../../use-cases/transactions/GetTransactionUseCase';
 import { UpdateTransactionController } from '../../controllers/transactions/UpdateTransactionController';
 import { UpdateTransactionUseCase } from '../../use-cases/transactions/UpdateTransactionUseCase';
+import { DeleteTransactionController } from '../../controllers/transactions/DeleteTransactionController';
+import { DeleteTransactionUseCase } from '../../use-cases/transactions/DeleteTransactionUseCase';
 
 const routes = Router();
 
@@ -46,5 +48,11 @@ const updateController = new UpdateTransactionController(
   new GetWalletUseCase(new WalletRepository())
 );
 routes.put('/wallets/:walletId/transactions/:id', updateController.handle.bind(updateController));
+
+const deleteController = new DeleteTransactionController(
+  new DeleteTransactionUseCase(new TransactionRepository()),
+  new GetWalletUseCase(new WalletRepository())
+);
+routes.delete('/wallets/:walletId/transactions/:id', deleteController.handle.bind(deleteController));
 
 export default routes;

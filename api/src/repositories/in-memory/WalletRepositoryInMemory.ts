@@ -6,14 +6,14 @@ export class WalletRepositoryInMemory implements IWalletRepository {
   private nextId = 1;
   private wallets: Wallet[] = [];
 
-  create(WalletData: IWalletCreateData): Promise<Wallet> {
-    const newWallet = new Wallet();
-    newWallet.id = this.nextId;
-    newWallet.user = WalletData.user;
-    newWallet.name = WalletData.name;
+  create(data: IWalletCreateData): Promise<Wallet> {
+    const record = new Wallet();
+    record.id = this.nextId;
+    record.user = data.user;
+    record.name = data.name;
+    this.wallets.push(record);
     this.nextId += 1;
-    this.wallets.push(newWallet);
-    return Promise.resolve(newWallet);
+    return Promise.resolve(record);
   }
 
   all(user: User): Promise<Wallet[]> {

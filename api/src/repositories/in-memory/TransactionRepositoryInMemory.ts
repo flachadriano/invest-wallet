@@ -52,4 +52,13 @@ export class TransactionRepositoryInMemory implements ITransactionRepository {
     }
     return Promise.reject();
   }
+
+  delete(wallet: Wallet, id: number): Promise<void> {
+    const index = this.transactions.findIndex(t => t.wallet.id === wallet.id && t.id === id);
+    if (index >= 0) {
+      delete this.transactions[index];
+      return Promise.resolve();
+    }
+    return Promise.reject();
+  }
 }

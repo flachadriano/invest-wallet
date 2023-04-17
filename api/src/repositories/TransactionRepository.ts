@@ -28,4 +28,8 @@ export class TransactionRepository implements ITransactionRepository {
     await this.repository.update({ wallet: { id: wallet.id }, id }, data);
     return this.get(wallet, id);
   }
+
+  async delete(wallet: Wallet, id: number): Promise<void> {
+    return this.repository.delete({ wallet: { id: wallet.id }, id }).then(() => Promise.resolve());
+  }
 }

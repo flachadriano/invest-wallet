@@ -23,4 +23,6 @@ export interface ITransactionRepository {
   get(wallet: Wallet, id: number): Promise<Transaction>;
 
   update(wallet: Wallet, id: number, data: ITransactionData): Promise<Transaction>;
+
+  delete(wallet: Wallet, id: number): Promise<void>;
 }

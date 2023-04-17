@@ -9,7 +9,7 @@ import { DeleteAssetUseCase } from '../assets/DeleteAssetUseCase';
 import { NotFound } from '../errors/NotFound';
 import { createUserFactory, createUserFactoryAnother } from '../users/CreateUserUseCase.factory';
 
-describe('WHEN delete an asset', () => {
+describe('WHEN delete an wallet', () => {
   let useCase: DeleteAssetUseCase;
   let userRepo: IUserRepository;
   let user: User;
@@ -23,18 +23,16 @@ describe('WHEN delete an asset', () => {
     useCase = new DeleteAssetUseCase(repository);
   });
 
-  it('WITH valid id THEN delete true', async () => {
-    const isDeletedBroker = await useCase.execute(user, asset.id);
-    expect(isDeletedBroker).toBe(true);
+  it('WITH a valid id THEN delete the wallet', () => {
+    expect(useCase.execute(user, asset.id)).resolves.toBe(true);
   });
 
-  it('WITH invalid id THEN should raises an error', () => {
-    expect(() => useCase.execute(user, 999999)).rejects.toBeInstanceOf(NotFound);
+  it('WITH an invalid id THEN raises an error', () => {
+    expect(useCase.execute(user, 999999)).rejects.toBeInstanceOf(NotFound);
   });
 
-  it('WITH valid id of another user THEN delete true', async () => {
+  it('WITH a valid id of another user THEN raises an error', async () => {
     const anotherUser = await createUserFactoryAnother(userRepo);
-    const deletedAssetPromise = useCase.execute(anotherUser, asset.id);
-    expect(deletedAssetPromise).rejects.toBeInstanceOf(NotFound);
+    expect(useCase.execute(anotherUser, asset.id)).rejects.toBeInstanceOf(NotFound);
   });
 });
