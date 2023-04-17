@@ -4,7 +4,8 @@ import { Box, Button, Typography } from '@mui/material';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { useQuery } from '@tanstack/react-query';
 import CreateIcon from '@mui/icons-material/Create';
-import { getTransactionList } from '../../services/Transaction';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deleteTransaction, getTransactionList } from '../../services/Transaction';
 import { SessionContext } from '../../contexts/SessionContext';
 import Transaction from '../../entities/Transaction';
 import { getOperationList } from '../../services/Operation';
@@ -14,7 +15,7 @@ export default function TransactionList() {
   const sessionData = useContext(SessionContext);
 
   const {
-    isLoading, data, error
+    isLoading, data, error, refetch
   } = useQuery(
     ['transactions'],
     () => getTransactionList(sessionData.user?.selectedWalletId || 0),
@@ -27,9 +28,15 @@ export default function TransactionList() {
     return <span>Ocorreu um erro ao carregar os dados, tente novamente mais tarde.</span>;
   }
 
+  const deleteAction = (id: number) => deleteTransaction(
+    sessionData.user?.selectedWalletId || 0,
+    id
+  ).then(() => refetch());
+
   const renderActions = (params: GridRenderCellParams<Transaction>) => (
     <Box>
       <NavLink to={`${RoutePath.TRANSACTIONS}/${params.row.id}`}><Button><CreateIcon /></Button></NavLink>
+      <Button onClick={() => deleteAction(params.row.id)}><DeleteIcon /></Button>
     </Box>
   );
 

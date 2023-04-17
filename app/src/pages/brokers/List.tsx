@@ -19,14 +19,12 @@ export default function BrokerList() {
     return <span>Ocorreu um erro ao carregar os dados, tente novamente mais tarde.</span>;
   }
 
-  const deleteBrokerAction = (id: number) => {
-    deleteBroker(id).then(() => refetch());
-  };
+  const deleteAction = (id: number) => deleteBroker(id).then(() => refetch());
 
   const renderActions = (params: GridRenderCellParams<Broker>) => (
     <Box>
       <NavLink to={`${RoutePath.BROKERS}/${params.row.id}`}><Button><CreateIcon /></Button></NavLink>
-      <Button onClick={() => deleteBrokerAction(params.row.id)}><DeleteIcon /></Button>
+      <Button onClick={() => deleteAction(params.row.id)}><DeleteIcon /></Button>
     </Box>
   );
 

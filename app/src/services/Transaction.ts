@@ -47,3 +47,7 @@ export async function putTransaction(
   const { data } = await api.put(`/wallets/${walletId}/transactions/${id}`, payload);
   return data;
 }
+
+export async function deleteTransaction(walletId: number, id: number): Promise<void> {
+  return api.delete(`/wallets/${walletId}/transactions/${id}`);
+}
