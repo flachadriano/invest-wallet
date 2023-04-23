@@ -13,12 +13,15 @@ interface IAuthProvider {
 function AuthProvider({ children }: IAuthProvider) {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | undefined>();
+  const [refreshToken, setRefreshToken] = useState<string | undefined>();
   const [user, setUser] = useState<User | undefined>();
   const [showMenu, setShowMenu] = useState(false);
 
-  const signIn = (newToken: string) => {
+  const signIn = (newToken: string, newRefreshToken: string) => {
     localStorage.setItem('token', newToken);
     setToken(newToken);
+    localStorage.setItem('refresh-token', newRefreshToken);
+    setRefreshToken(newRefreshToken);
 
     const jwtUser = jwtDecode<User>(newToken);
     setUser(jwtUser);
@@ -50,6 +53,7 @@ function AuthProvider({ children }: IAuthProvider) {
     <SessionContext.Provider value={{
       loading,
       token,
+      refreshToken,
       user,
       signIn,
       signOut,

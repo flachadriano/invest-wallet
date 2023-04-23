@@ -26,9 +26,9 @@ export default function Login(): JSX.Element {
     authenticate({
       loginOrEmail: data.loginOrEmail.toString(),
       password: data.password.toString(),
-      keppConnected: false,
+      keepConnected: false,
     }).then((userData: AuthenticateResponse) => {
-      sessionData.signIn(userData.token);
+      sessionData.signIn(userData.token, userData.refreshToken);
       navigate(RoutePath.HOME);
     })
       .catch((e: Error) => setError(e.message))

@@ -1,5 +1,5 @@
 import Asset from '../entities/Asset';
-import api from './Api';
+import apiPrivate from './ApiPrivate';
 
 interface Payload {
   name: string;
@@ -10,26 +10,26 @@ interface Payload {
 }
 
 export async function getAssetList(): Promise<Asset[]> {
-  const { data } = await api.get('/assets');
+  const { data } = await apiPrivate().get('/assets');
   return data;
 }
 
 export async function getAsset(id: number): Promise<Asset> {
-  const { data } = await api.get(`/assets/${id}`);
+  const { data } = await apiPrivate().get(`/assets/${id}`);
   return data;
 }
 
 export async function postAsset(payload: Payload): Promise<Asset> {
-  const { data } = await api.post('/assets', payload);
+  const { data } = await apiPrivate().post('/assets', payload);
   return data;
 }
 
 export async function putAsset(id: number, payload: Payload): Promise<Asset> {
-  const { data } = await api.put(`/assets/${id}`, payload);
+  const { data } = await apiPrivate().put(`/assets/${id}`, payload);
   return data;
 }
 
 export async function deleteAsset(id: number): Promise<boolean> {
-  const { data } = await api.delete(`/assets/${id}`);
+  const { data } = await apiPrivate().delete(`/assets/${id}`);
   return data;
 }

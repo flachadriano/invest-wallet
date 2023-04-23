@@ -1,5 +1,5 @@
 import Transaction from '../entities/Transaction';
-import api from './Api';
+import apiPrivate from './ApiPrivate';
 
 interface PostPayload {
   walletId: number;
@@ -25,17 +25,20 @@ interface PutPayload {
 }
 
 export async function getTransactionList(walletId: number): Promise<Transaction[]> {
-  const { data } = await api.get(`/wallets/${walletId}/transactions`);
+  const { data } = await apiPrivate().get(`/wallets/${walletId}/transactions`);
   return data;
 }
 
-export async function postTransaction(payload: PostPayload): Promise<Transaction> {
-  const { data } = await api.post('/transactions', payload);
+export async function postTransaction(
+  walletId: number,
+  payload: PostPayload
+): Promise<Transaction> {
+  const { data } = await apiPrivate().post(`/wallets/${walletId}/transactions`, payload);
   return data;
 }
 
 export async function getTransaction(walletId: number, id: number): Promise<Transaction> {
-  const { data } = await api.get(`/wallets/${walletId}/transactions/${id}`);
+  const { data } = await apiPrivate().get(`/wallets/${walletId}/transactions/${id}`);
   return data;
 }
 
@@ -44,10 +47,10 @@ export async function putTransaction(
   id: number,
   payload: PutPayload
 ): Promise<Transaction> {
-  const { data } = await api.put(`/wallets/${walletId}/transactions/${id}`, payload);
+  const { data } = await apiPrivate().put(`/wallets/${walletId}/transactions/${id}`, payload);
   return data;
 }
 
 export async function deleteTransaction(walletId: number, id: number): Promise<void> {
-  return api.delete(`/wallets/${walletId}/transactions/${id}`);
+  return apiPrivate().delete(`/wallets/${walletId}/transactions/${id}`);
 }

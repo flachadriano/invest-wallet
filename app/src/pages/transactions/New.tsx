@@ -22,7 +22,7 @@ export default function TransactionNew() {
 
     const formData = new FormData(event.target as HTMLFormElement);
     const data = Object.fromEntries(formData);
-    postTransaction({
+    postTransaction(sessionData.user?.selectedWalletId || 0, {
       walletId: sessionData.user?.selectedWalletId || 0,
       brokerId: data.broker_id.toString(),
       assetId: data.asset_id.toString(),
@@ -34,7 +34,7 @@ export default function TransactionNew() {
       comment: data.comment.toString()
     }).then(() => {
       Toast.success('Transação adicionada com sucesso.');
-      navigate(RoutePath.HOME);
+      navigate(RoutePath.TRANSACTIONS);
     }).catch(() => Toast.error('Não foi possível adicionar a transação, tente novamente mais tarde.'))
       .finally(() => setLoading(false));
   };
