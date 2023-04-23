@@ -15,7 +15,6 @@ export class CreateUserController {
 
     const user = await this.createUserUseCase.execute({ name, email, login, password });
     const wallet = await this.createWalletUseCase.execute({ user, name: 'Carteira' });
-
     await this.updateUserWalletUseCase.execute(user, { selectedWalletId: wallet.id });
 
     response.json({

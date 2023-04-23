@@ -1,12 +1,9 @@
 import { sign } from 'jsonwebtoken';
 import { User } from '../entities/User';
-import { IRefreshTokenRepository } from '../repositories/interfaces/IRefreshTokenRepository';
 
 export class GenerateRefreshTokenProvider {
-  constructor(private repository: IRefreshTokenRepository) {}
-
   execute(user: User): string {
-    const refreshToken = sign({
+    return sign({
       id: user.id,
       name: user.name,
       email: user.email,
@@ -16,13 +13,5 @@ export class GenerateRefreshTokenProvider {
       subject: user.login,
       expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN
     });
-
-    this.repository.create({
-      token: refreshToken,
-      expiresIn: new Date(),
-      user: user
-    });
-
-    return refreshToken;
   }
 }

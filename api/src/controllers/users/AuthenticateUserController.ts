@@ -7,21 +7,10 @@ export class AuthenticateUserController {
   async handle(request: Request, response: Response) {
     const { loginOrEmail, password, keepConnected } = request.body;
 
-    const { token, refreshToken, user } = await this.authenticateUserUseCase.execute({
+    const { token, refreshToken } = await this.authenticateUserUseCase.execute({
       loginOrEmail, password, keepConnected
     });
 
-    response.json({
-      token,
-      refreshToken,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        login: user.login,
-        selectedWalletId: user.selectedWalletId,
-        createdAt: user.createdAt
-      }
-    });
+    response.json({ token, refreshToken });
   }
 }

@@ -5,8 +5,8 @@ export class RefreshTokenUserController {
   constructor(private useCase: RefreshTokenUserUseCase) {}
 
   async handle(request: Request, response: Response) {
-    const { refreshToken } = request.body;
-    const token = await this.useCase.execute({ refreshToken });
-    response.json(token);
+    const { refreshToken, temporary } = request.body;
+    const tokenData = await this.useCase.execute({ temporary, refreshToken });
+    response.json({ token: tokenData.token, refreshToken: tokenData.refreshToken });
   }
 }

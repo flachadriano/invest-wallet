@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { RefreshTokenRepositoryInMemory } from '../../repositories/in-memory/RefreshTokenRepositoryInMemory';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
 import { IUserRepository } from '../../repositories/interfaces/IUserRepository';
 import { Unauthorized } from '../errors/Unauthorized';
@@ -29,10 +28,7 @@ describe('WHEN try to access a protected endpoint', () => {
   });
 
   it('WITH a valid token THEN authenticate', async () => {
-    const authenticate = new AuthenticateUserUseCase(
-      repository,
-      new RefreshTokenRepositoryInMemory()
-    );
+    const authenticate = new AuthenticateUserUseCase(repository);
     const { token } = await authenticate.execute({
       loginOrEmail: getNewUserData().email,
       password: getNewUserData().password

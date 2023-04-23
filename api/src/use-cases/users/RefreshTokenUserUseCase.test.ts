@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { RefreshTokenRepositoryInMemory } from '../../repositories/in-memory/RefreshTokenRepositoryInMemory';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
 import { Unauthorized } from '../errors/Unauthorized';
 import { AuthenticateUserUseCase, IResponse } from './AuthenticateUserUseCase';
@@ -20,9 +19,8 @@ describe('WHEN generate a new token', () => {
   beforeEach(async () => {
     const userRepo = new UserRepositoryInMemory();
     await createUserFactory(userRepo);
-    const refreshTokenRepo = new RefreshTokenRepositoryInMemory();
     useCase = new RefreshTokenUserUseCase(userRepo);
-    loggedTokens = await new AuthenticateUserUseCase(userRepo, refreshTokenRepo)
+    loggedTokens = await new AuthenticateUserUseCase(userRepo)
       .execute({
         loginOrEmail: getNewUserData().login,
         password: getNewUserData().password,

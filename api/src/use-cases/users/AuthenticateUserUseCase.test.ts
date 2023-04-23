@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { RefreshTokenRepositoryInMemory } from '../../repositories/in-memory/RefreshTokenRepositoryInMemory';
 import { UserRepositoryInMemory } from '../../repositories/in-memory/UserRepositoryInMemory';
 import { IUserRepository } from '../../repositories/interfaces/IUserRepository';
 import { Forbidden } from '../errors/Forbidden';
@@ -24,9 +23,8 @@ describe('WHEN authenticate and user', () => {
 
   beforeEach(() => {
     const repository = new UserRepositoryInMemory();
-    const refreshTokenRepository = new RefreshTokenRepositoryInMemory();
     createUser(repository);
-    useCase = new AuthenticateUserUseCase(repository, refreshTokenRepository);
+    useCase = new AuthenticateUserUseCase(repository);
   });
 
   it('WITH valid login and password THEN return the user data', () => {

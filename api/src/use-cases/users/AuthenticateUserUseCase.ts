@@ -1,9 +1,7 @@
-import { User } from '../../entities/User';
 import { EncryptPasswordProvider } from '../../providers/EncryptPasswordProvider';
 import { GenerateRefreshTokenProvider } from '../../providers/GenerateRefreshTokenProvider';
 import { GenerateTemporaryRefreshTokenProvider } from '../../providers/GenerateTemporaryRefreshTokenProvider';
 import { GenerateTokenProvider } from '../../providers/GenerateTokenProvider';
-import { IRefreshTokenRepository } from '../../repositories/interfaces/IRefreshTokenRepository';
 import { IUserRepository } from '../../repositories/interfaces/IUserRepository';
 import { Forbidden } from '../errors/Forbidden';
 
@@ -15,15 +13,11 @@ interface IRequest {
 
 export interface IResponse {
   token: string;
-  refreshToken?: string;
-  user: User;
+  refreshToken: string;
 }
 
 export class AuthenticateUserUseCase {
-  constructor(
-    private repository: IUserRepository,
-    private refreshTokenRepository: IRefreshTokenRepository
-  ) {}
+  constructor(private repository: IUserRepository) {}
 
   async execute({ loginOrEmail, password, keepConnected }: IRequest): Promise<IResponse> {
     let user = await this.repository.findByLogin(loginOrEmail);
@@ -42,19 +36,12 @@ export class AuthenticateUserUseCase {
 
     const token = new GenerateTokenProvider().execute(user);
     let refreshToken: string;
-
     if (keepConnected) {
-      const provider = new GenerateRefreshTokenProvider(this.refreshTokenRepository);
-      refreshToken = provider.execute(user);
+      refreshToken = new GenerateRefreshTokenProvider().execute(user);
     } else {
-      const provider = new GenerateTemporaryRefreshTokenProvider();
-      refreshToken = provider.execute(user);
+      refreshToken = new GenerateTemporaryRefreshTokenProvider().execute(user);
     }
 
-    return {
-      token,
-      refreshToken,
-      user
-    };
+    return { token, refreshToken };
   }
 }

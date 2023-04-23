@@ -6,13 +6,11 @@ export class default1679868173804 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`ALTER TABLE "brokers" RENAME COLUMN "acronym" TO "legal_name"`);
-    await queryRunner.query(`ALTER TABLE "users" ALTER COLUMN "created_at" SET DEFAULT 'now()'`);
     await queryRunner.query(`ALTER TABLE "brokers" ALTER COLUMN "legal_name" DROP NOT NULL`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`ALTER TABLE "brokers" ALTER COLUMN "legal_name" SET NOT NULL`);
-    await queryRunner.query(`ALTER TABLE "users" ALTER COLUMN "created_at" SET DEFAULT '2023-03-26'`);
     await queryRunner.query(`ALTER TABLE "brokers" RENAME COLUMN "legal_name" TO "acronym"`);
   }
 }

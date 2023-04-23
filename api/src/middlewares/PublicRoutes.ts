@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { AuthenticateUserController } from '../controllers/users/AuthenticateUserController';
 import { CreateUserController } from '../controllers/users/CreateUserController';
 import { RefreshTokenUserController } from '../controllers/users/RefreshTokenUserController';
-import { RefreshTokenRepository } from '../repositories/RefreshTokenRepository';
 import { UserRepository } from '../repositories/UserRepository';
 import { WalletRepository } from '../repositories/WalletRepostory';
 import { AuthenticateUserUseCase } from '../use-cases/users/AuthenticateUserUseCase';
@@ -21,7 +20,7 @@ const createUserController = new CreateUserController(
 routes.post('/users', createUserController.handle.bind(createUserController));
 
 const authenticateUserController = new AuthenticateUserController(
-  new AuthenticateUserUseCase(new UserRepository(), new RefreshTokenRepository())
+  new AuthenticateUserUseCase(new UserRepository())
 );
 routes.post('/users/authenticate', authenticateUserController.handle.bind(authenticateUserController));
 

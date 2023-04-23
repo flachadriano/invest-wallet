@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Asset } from './Asset';
 import { Broker } from './Broker';
-import { RefreshToken } from './RefreshTokens';
 import { Wallet } from './Wallet';
 
 @Entity('users')
@@ -26,9 +25,6 @@ export class User {
 
   @Column({ type: 'date', default: 'now()' })
     createdAt: Date;
-
-  @OneToMany(() => RefreshToken, refreshToken => refreshToken.user)
-    refreshTokens: RefreshToken[];
 
   @OneToMany(() => Asset, asset => asset.user)
     assets: Asset[];

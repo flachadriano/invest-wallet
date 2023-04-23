@@ -5,6 +5,7 @@ interface Payload {
   name: string;
   email: string;
   login: string;
+  temporary: boolean;
 }
 
 export class DecodeTokenPayloadProvider {
