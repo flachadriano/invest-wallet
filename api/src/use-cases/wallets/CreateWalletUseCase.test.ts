@@ -9,13 +9,10 @@ describe('WHEN create an wallet', () => {
   let useCase: CreateWalletUseCase;
   let data;
 
-  const getNewWalletData = async () => {
-    const user = await createUserFactory();
-    return {
-      user,
-      name: 'Wallet 1'
-    };
-  };
+  const getNewWalletData = async () => ({
+    user: await createUserFactory(),
+    name: 'Wallet 1'
+  });
 
   beforeEach(async () => {
     useCase = new CreateWalletUseCase(new WalletRepositoryInMemory());
